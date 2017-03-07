@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div [ngStyle] = "{'color': subData.color}">{{subData.name}} </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <button *ngIf="!_user.getUser().bussinessClient"
+    ion-button
+    id="filter"
+    [ngStyle] = "{'background': subData.color}"
+     (click)="onFilterClick(subData.color, items)"
+  >
+    Филтрирай
+  </button>
+
+  <button *ngIf="_user.getUser().bussinessClient"
+          ion-button
+          id="filter"
+          [ngStyle] = "{'background': subData.color}"
+          (click)="onRegisterClick(subData)"
+  >
+    Създай
+  </button>
+  <button
+    ion-button
+    id="search"
+    [ngStyle] = "{'background': subData.color}"
+    (click)="onSearchClick(subData.items)"
+  >
+    Търси
+  </button>
+
+  <ion-list
+          *ngIf="_user.getUser().bussinessClient"
+  >
+    <div
+      ion-item class = "list-btn"
+      *ngFor="let item of items | bussinessItems"
+
+      (click)="openNavDetailsPage(item, subData.color)"
+    >
+      <div class="items">
+        <img
+          *ngIf="item.img != null"
+          class="item-img"
+          [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + item.img)"
+        />
+        <img
+          *ngIf="item.img == null"
+          class="item-img"
+          [src="assets/img/firm/noImage.png"
+        />
+
+        <p class="item-info"><b>
+        {{item.name}}
+        </b></p>
+
+        <p
+          class="item-info">
+          Град: {{item.city}}
+        </p>
+
+        <button
+          class="comments"
+          outline ion-button
+          [ngStyle] = "{'color': subData.color, 'border-color': subData.color}">
+        <ion-icon name="text" class="comments-icon"></ion-icon>
+        <div>{{item.commentsCount}} коментара</div>
+        </button>
+
+        <button
+                class="likes-2"
+                outline ion-button
+                [ngStyle] = "{'color': subData.color, 'border-color': subData.color}">
+          <ion-icon name="thumbs-up" class="comments-icon"></ion-icon>
+          <div>{{item.getLikesLength()}} харесвания</div>
+        </button>
+
+      </div>
+
+
+    </div>
+  </ion-list>
+
+  <ion-list
+          *ngIf="!_user.getUser().bussinessClient"
+  >
+    <ion-item
+             class = "list-btn"
+            *ngFor="let item of items"
+
+    >
+      <div class="items"
+           (click)="openNavDetailsPage(item, subData.color, likes, comments)">
+        <img
+          *ngIf="item.img != null"
+          class="item-img"
+          [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + item.img)"
+        />
+        <img
+          *ngIf="item.img == null"
+          class="item-img"
+          [src="assets/img/firm/noImage.png"
+        />
+
+        <p class="item-info"><b>
+          {{item.name}}
+        </b></p>
+
+        <p
+                class="item-info">
+          Град: {{item.city}}
+        </p>
+
+        <button
+                class="comments"
+                outline ion-button
+                [ngStyle] = "{'color': subData.color, 'border-color': subData.color}">
+          <ion-icon name="text" class="comments-icon"></ion-icon>
+          <div>{{item.commentsCount}} коментара</div>
+        </button>
+
+        <ion-icon
+                #btn
+                class="likes"
+                name="thumbs-up"
+                clear large ion-button
+                (click)="onLikeClick(btn,subData.color, like, item, $event)"
+                [style.color]="!likeClicked && item.$key == clickedKey?subData.color:''"
+
+        >
+
+
+        </ion-icon>
+        <span #like class="count-likes"
+              [style.color]="item.clicked?subData.color:''"
+        >({{item.getLikesLength()}})</span>
+      </div>
+
+
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,59 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+</ion-header>
+
+<ion-content class="content">
+  <form [formGroup]="login">
+
+
+    <img class='logo' src="assets/img/logo/logo1.png"/>
+      <img class='logo2' src="assets/img/logo/ServiceSeek-logo.png"/>
+
+      <ion-list>
+
+          <ion-item class="info">
+              <ion-label floating>Имейл</ion-label>
+              <ion-input formControlName="email" type="text"></ion-input>
+          </ion-item>
+        <p
+          class="error-msg"
+          *ngIf = "login.controls.email.errors?.required && sumbited"              >
+          Моля въведете имейл
+        </p>
+
+          <ion-item class="info">
+              <ion-label floating>Парола</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+        <p
+          class="error-msg"
+          *ngIf = "login.controls.password.errors?.required && sumbited"              >
+          Моля въведете парола
+        </p>
+
+      </ion-list>
+
+      <button
+              ion-button text-capitalize
+              large color="blue2"
+              class="login"
+              [disabled]="this.login.invalid"
+              (click)="signIn()"
+      >
+          Влизане
+      </button>
+  </form>
+
+  <ion-footer>
+    <ion-toolbar>
+      <button
+        ion-button
+        clear full small
+        color="blue3"
+        (click)="signup()"
+      >
+        Все още нямаш акаунт?
+      </button>
+    </ion-toolbar>
+  </ion-footer>
+
+</ion-content>

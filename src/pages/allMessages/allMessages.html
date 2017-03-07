@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        Съобщения
+    </ion-title>
+  </ion-navbar>
+  <!--<ion-searchbar (ionInput)="searchRequests($event)"></ion-searchbar>-->
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="!(_user.getUser()?.bussinessClient) ">
+    <ion-item
+      class = "home-page-categories-btn"
+      *ngFor="let message of userMessages"
+      (click)="onMessageClick(message)"
+
+    >
+      <ion-checkbox
+        *ngIf="clicked"
+        color="white"
+        checked="false"
+        class="check-box"
+        (click)="chooseDeleted(message)"
+      >
+
+      </ion-checkbox>
+      <ion-avatar
+        item-left>
+        <img *ngIf="message.firmImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.firmImg)">
+        <img *ngIf="message.firmImg == null" class="avatar" src="assets/img/firm/noImage.png">
+      </ion-avatar>
+
+      <p class="name"><b>{{message.firmName}}</b></p>
+      <p class="date" *ngIf="message.messages != null">
+        {{message.messages[Object.keys(message.messages)[Object.keys(message.messages).length - 1]].date}}
+      </p>
+      <!--<p class="message" *ngIf="message.messages != null">{{message.messages[0].message}}</p>-->
+
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="_user.getUser()?.bussinessClient">
+    <ion-item
+      class = "home-page-categories-btn"
+      *ngFor="let message of businessMessages"
+      (click)="onMessageClick(message)"
+
+    >
+      <ion-checkbox
+        *ngIf="clicked"
+        color="white"
+        checked="false"
+        class="check-box"
+        (click)="chooseDeleted(message)"
+      >
+
+      </ion-checkbox>
+      <ion-avatar
+        item-left>
+        <img *ngIf="message.userImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.userImg)">
+        <img *ngIf="message.userImg == null" class="avatar" src="assets/img/firm/noImage.png">
+      </ion-avatar>
+
+      <p class="name"><b>{{message.userName}}</b></p>
+      <p class="date"> {{message.messages[0].date}}</p>
+      <p class="message">{{message.messages[0].message}}</p>
+
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
+
+<!--<ion-footer>-->
+  <!--<ion-toolbar color="white">-->
+    <!--<button-->
+      <!--ion-button block outline-->
+      <!--class="delete-more"-->
+      <!--*ngIf="!clicked && !_user.getUser()?.bussinessClient"-->
+      <!--(click)="isClicked()"-->
+    <!--&gt;-->
+      <!--Изтриване-->
+    <!--</button>-->
+    <!--<button-->
+      <!--ion-button block outline-->
+      <!--class="delete-more"-->
+      <!--*ngIf="!clicked && _user.getUser()?.bussinessClient"-->
+      <!--(click)="isClicked()"-->
+    <!--&gt;-->
+      <!--Отговор-->
+    <!--</button>-->
+    <!--<button-->
+      <!--ion-button block outline-->
+      <!--class="delete"-->
+      <!--*ngIf="clicked && !_user.getUser()?.bussinessClient"-->
+      <!--(click)="delete()"-->
+    <!--&gt;-->
+      <!--Изтриване-->
+    <!--</button>-->
+    <!--<button-->
+      <!--ion-button="" block outline-->
+      <!--class="stop"-->
+      <!--*ngIf="clicked && !_user.getUser()?.bussinessClient"-->
+      <!--(click)="stop()"-->
+    <!--&gt;-->
+      <!--Прекрати-->
+    <!--</button>-->
+    <!--<button-->
+      <!--ion-button block outline-->
+      <!--class="accept"-->
+      <!--*ngIf="clicked && _user.getUser()?.bussinessClient"-->
+      <!--(click)="accept()"-->
+    <!--&gt;-->
+      <!--Приеми-->
+    <!--</button>-->
+    <!--<button-->
+      <!--ion-button block outline-->
+      <!--class="decline"-->
+      <!--*ngIf="clicked && _user.getUser()?.bussinessClient"-->
+      <!--(click)="decline()"-->
+    <!--&gt;-->
+      <!--Откажи-->
+    <!--</button>-->
+    <!--<button-->
+      <!--ion-button="" block outline-->
+      <!--class="close"-->
+      <!--*ngIf="clicked && _user.getUser()?.bussinessClient"-->
+      <!--(click)="stop()"-->
+    <!--&gt;-->
+      <!--Прекрати-->
+    <!--</button>-->
+  <!--</ion-toolbar>-->
+<!--</ion-footer>-->

@@ -1,0 +1,92 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Коментари
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list no-lines *ngIf="!_user.getUser().bussinessClient">
+    <ion-item
+      *ngFor="let comment of comments"
+    >
+        <ion-avatar>
+          <img
+            *ngIf="comment.img != null"
+            class="avatar"
+            [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + comment.img)"
+          />
+          <img
+            *ngIf="user.photo == null"
+            class="avatar"
+            [src="assets/img/firm/noImage.png"
+          />
+        </ion-avatar>
+        <p class="name"><b>{{comment.name}}</b></p>
+        <p class="comment"> {{comment.comment}}</p>
+        <ion-note class="note">
+          {{comment.time}}
+        </ion-note>
+
+    </ion-item>
+
+  </ion-list>
+
+
+  <ion-list no-lines *ngIf="_user.getUser().bussinessClient">
+    <ion-item
+            *ngFor="let comment of comments"
+    >
+
+
+            <ion-avatar
+                    item-left>
+              <img class="avatar" src="assets/img/users/{{comment.img}}">
+            </ion-avatar>
+
+            <p class="name"><b>{{comment.name}}</b></p>
+            <p class="comment"> {{comment.comment}}</p>
+            <ion-note class="note">
+              {{comment.time}}
+            </ion-note>
+
+            <button right
+                    ion-button clear
+                    (click)="deleteComment(comment)"
+                    class = "delete"
+            >
+              <ion-icon
+                      color="danger"
+                      name="close-circle"
+                      class="delete"
+              >
+
+              </ion-icon>
+            </button>
+
+    </ion-item>
+
+  </ion-list>
+
+
+
+</ion-content>
+
+<ion-footer *ngIf="!_user.getUser().bussinessClient">
+  <ion-toolbar>
+
+    <ion-input #comment class="comment-input" type="text" placeholder="Добавете коментар">
+
+    </ion-input>
+    <button class="send"
+            [ngStyle]="{background: data.color}"
+            (click)="addComment(comment)"
+    >
+      <ion-icon class="send-icon" name="send"></ion-icon>
+    </button>
+
+  </ion-toolbar>
+</ion-footer>

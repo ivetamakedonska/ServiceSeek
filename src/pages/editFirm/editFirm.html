@@ -1,0 +1,181 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Фирмена информация
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="about">
+  <form [formGroup]="edit">
+
+    <ion-avatar>
+      <!--<img *ngIf="item.img != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + item.img)">-->
+      <img *ngIf="item.img == null" class="avatar" src="assets/img/firm/noImage.png">
+
+          <p
+                  color="primary"
+                  class="change-photo"
+                  (click)="changePhotoOptions()"
+          >
+              Добавяне на снимка
+          </p>
+
+      </ion-avatar>
+
+      <ion-list >
+        <ion-item>
+            <ion-input
+                    formControlName="name"
+                    placeholder="Фирмено име"
+                    value = "{{item.name}}"
+            >
+
+            </ion-input>
+        </ion-item>
+        <ion-list-header>
+            <ion-icon class="icon" name="pin"></ion-icon>
+            Адрес
+        </ion-list-header>
+        <ion-item>
+            <ion-input
+                    formControlName="city"
+                    placeholder="Град"
+                    value = "{{item.city}}"
+
+            >
+
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input
+                    formControlName="address"
+                    placeholder="Адрес"
+                    value = "{{item.address}}"
+
+            >
+
+            </ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            <ion-icon class="icon" name="clock"></ion-icon>
+            Работно време
+        </ion-list-header>
+        <ion-list-header class="days">
+          Делнични дни
+        </ion-list-header>
+        <ion-item>
+
+          <ion-input
+            formControlName="workTimeWeekdayStart"
+            placeholder="Отваряне"
+            value="{{item.workTimeWeekdayStart}}"
+          ></ion-input>
+
+          <ion-input
+            formControlName="workTimeWeekdayEnd"
+            placeholder="Затваряне"
+            value="{{item.workTimeWeekdayEnd}}"
+
+          ></ion-input>
+        </ion-item>
+        <ion-list-header class="days">
+          Събота
+        </ion-list-header>
+        <ion-item>
+          <ion-input
+            formControlName="workTimeSaturdayStart"
+            placeholder="Отваряне"
+            value="{{item.workTimeSaturdayStart}}"
+
+          ></ion-input>
+          <ion-input
+            formControlName="workTimeSaturdayEnd"
+            placeholder="Затваряне"
+            value="{{item.workTimeSaturdayEnd}}"
+
+          ></ion-input>
+        </ion-item>
+        <ion-list-header class="days">
+          Неделя
+        </ion-list-header>
+        <ion-item>
+          <ion-input
+            formControlName="workTimeSundayStart"
+            placeholder="Отваряне"
+            value="{{item.workTimeSundayStart}}"
+
+          ></ion-input>
+          <ion-input
+            formControlName="workTimeSundayEnd"
+            placeholder="Затваряне"
+            value="{{item.workTimeSundayEnd}}"
+
+          ></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          <ion-icon name="clock"></ion-icon>
+          Услуги
+        </ion-list-header>
+
+        <ion-list *ngFor="let service of item.services" class="more-services">
+
+          <ion-item>
+            <ion-input [(ngModel)]="service.service" [ngModelOptions]="{standalone: true}"
+                       value="{{service.service}}" placeholder="Услуга"
+            >
+
+            </ion-input>
+          </ion-item>
+          <ion-item class="price">
+            <ion-input
+              [(ngModel)]="service.price" [ngModelOptions]="{standalone: true}"
+              value="{{service.price}}"
+              placeholder="Цена"
+
+            >
+
+            </ion-input>
+          </ion-item>
+          <ion-item class="duration">
+            <ion-input
+              [(ngModel)]="service.duration" [ngModelOptions]="{standalone: true}"
+              value="{{service.duration}}"
+              placeholder="Времетраене"
+            >
+
+            </ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-list-header>
+            <ion-icon class="icon" name="information-circle"></ion-icon>
+            Повече информация
+        </ion-list-header>
+        <ion-item>
+            <ion-input
+                    formControlName="moreInfo"
+                    placeholder="Повече информация"
+                    value = "{{item.moreInfo}}"
+
+            >
+
+            </ion-input>
+        </ion-item>
+
+    </ion-list>
+
+
+
+    <button
+            ion-button full primary
+            class="save"
+            (click)="save('top')"
+    >
+         Запази промените
+    </button>
+
+  </form>
+</ion-content>

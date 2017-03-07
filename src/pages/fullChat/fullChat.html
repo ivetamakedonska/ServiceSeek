@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Чат- {{chat.firmName}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="!_user.getUser()?.bussinessClient && messages != ''">
+    <ion-item
+      class = "home-page-categories-btn"
+      *ngFor="let key of keys"
+
+    >
+      <ion-avatar
+        item-left>
+        <img *ngIf="key>=1 && messages[key].isBusinessClient && chat.firmImg != null && !messages[key-1].isBusinessClient"
+             class="avatar"
+             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.firmImg)">
+        <img *ngIf="messages[key].isBusinessClient && chat.firmImg != null && key == 0"
+             class="avatar"
+             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.firmImg)">
+        <img *ngIf="chat.firmImg == null" class="avatar" src="assets/img/firm/noImage.png">
+      </ion-avatar>
+
+      <p class="my-date" *ngIf="!messages[key].isBusinessClient"> {{messages[key].date}}</p>
+      <p class="my-message"
+         *ngIf="!messages[key].isBusinessClient"
+      >
+        {{messages[key].message}}
+      </p>
+
+      <p class="other-message"
+         *ngIf="messages[key].isBusinessClient"
+      >
+        {{messages[key].message}}
+      </p>
+      <p class="other-date" *ngIf="messages[key].isBusinessClient"> {{messages[key].date}}</p>
+
+
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="_user.getUser()?.bussinessClient">
+
+    <ion-item
+      class = "home-page-categories-btn"
+      *ngFor="let key of keys"
+
+    >
+      <ion-avatar
+        item-left>
+        <img *ngIf="!messages[key].isBusinessClient && chat.userImg != null && key == 0 "
+             class="avatar"
+             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">
+        <img *ngIf="key>=1 && !messages[key].isBusinessClient && chat.userImg != null && messages[key-1].isBusinessClient "
+             class="avatar"
+             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">
+        <!--<img *ngIf="!message.isBusinessClient && chat.userImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">-->
+        <img *ngIf="chat.userImg == null" class="avatar" src="assets/img/firm/noImage.png">
+      </ion-avatar>
+
+      <p class="my-date" *ngIf="messages[key].isBusinessClient"> {{messages[key].date}}</p>
+      <p class="my-message"
+         *ngIf="messages[key].isBusinessClient"
+      >
+        {{messages[key].message}}
+      </p>
+
+      <p class="other-message"
+         *ngIf="!messages[key].isBusinessClient"
+      >
+        {{messages[key].message}}
+      </p>
+      <p class="other-date" *ngIf="!messages[key].isBusinessClient"> {{messages[key].date}}</p>
+
+
+    </ion-item>
+
+
+  </ion-list>
+</ion-content>
+
+
+<ion-footer>
+
+  <ion-toolbar>
+
+      <button ion-button clear small icon-only class="add-photo">
+        <ion-icon name="home"></ion-icon>
+      </button>
+
+      <ion-input #message class="comment-input" type="text" placeholder="Напишете съобщение">
+
+      </ion-input>
+      <button
+        class="send"
+        ion-button clear small
+        color="primary"
+        [disabled]="message.value == ''"
+        (click)="sendMessage(message)"
+      >
+        Изпрати
+      </button>
+
+  </ion-toolbar>
+
+</ion-footer>
+

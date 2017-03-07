@@ -1,0 +1,167 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div> Детайли </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+
+    <ion-item *ngIf="!(_user.getUser()?.bussinessClient)">
+      <div class="messages">
+        <ion-avatar  item-left>
+          <img *ngIf="message.firmImg != null" class="message-img" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.firmImg)">
+          <img *ngIf="message.firmImg == null" class="message-img" src="assets/img/firm/noImage.png">
+
+        </ion-avatar>
+        <p class="message-name"><b>{{message.firmName}}</b></p>
+        <p  class="under-name">{{message.askedTime}}</p>
+
+      </div>
+
+
+      <ion-list>
+        <ion-list-header>
+          <ion-icon name="people"></ion-icon>
+          Услуга
+        </ion-list-header>
+        <ion-item><p class="message-info">Услуга:  {{message.service}}</p></ion-item>
+        <ion-item><p class="message-info">Времетраене: {{message.duration}}</p></ion-item>
+        <ion-item><p class="message-info">Цена: {{message.price}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon name="alarm"></ion-icon>
+          Дата и час
+        </ion-list-header>
+        <ion-item><p class="message-info">{{message.date}}, {{message.time}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon name="information-circle"></ion-icon>
+          Допълнително информация
+        </ion-list-header>
+        <ion-item><p class="message-info">{{message.moreInfo  }}</p></ion-item>
+        <ion-list-header>
+          Статус
+        </ion-list-header>
+        <ion-item>
+          <p class="message-condition">{{message.condition}}</p>
+          <ion-icon
+            class="condition-icon"
+            [ngStyle]="{'color': message.color}"
+            name={{message.iconName}}
+          >
+          </ion-icon>
+        </ion-item>
+      </ion-list>
+
+      <button
+              class="delete-user"
+              ion-button block outline
+              (click)=" deleteMessage(message.id)"
+      >
+        <ion-icon item-left name="close"></ion-icon>
+        Изтрий
+      </button>
+    </ion-item>
+
+
+    <ion-item *ngIf="(_user.getUser()?.bussinessClient)">
+      <div class="messages">
+        <ion-avatar  item-left>
+          <img *ngIf="message.userImg != null" class="message-img" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.userImg)">
+          <img *ngIf="message.userImg == null" class="message-img" src="assets/img/users/noPhoto.png">
+        </ion-avatar>
+        <p class="message-name"><b>{{message.userName}}</b></p>
+        <p  class="under-name">{{message.askedTime}}</p>
+
+      </div>
+
+
+      <ion-list>
+        <ion-list-header>
+          <ion-icon name="pin"></ion-icon>
+          Фирма
+        </ion-list-header>
+        <ion-item><p class="message-info">{{message.firmName}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon name="people"></ion-icon>
+          Услуга
+        </ion-list-header>
+        <ion-item><p class="message-info">Услуга: {{message.service}}</p></ion-item>
+        <ion-item><p class="message-info">Времетраене: {{message.duration}}</p></ion-item>
+        <ion-item><p class="message-info">Цена: {{message.price}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon name="alarm"></ion-icon>
+          Дата и час
+        </ion-list-header>
+        <ion-item><p class="message-info">{{message.date}}, {{message.time}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon name="information-circle"></ion-icon>
+          Допълнително информация
+        </ion-list-header>
+        <ion-item><p class="message-info">{{message.moreInfo  }}</p></ion-item>
+
+        <button
+                class="accept"
+                ion-button
+                (click)="acceptRequest()"
+                *ngIf="message.condition == 'Чакащ'"
+        >
+          <ion-icon item-left name="checkmark"></ion-icon>
+          Приеми
+        </button>
+        <button
+                class="decline"
+                ion-button
+                (click)="declineRequest(message)"
+                *ngIf="message.condition == 'Чакащ'"
+        >
+          <ion-icon item-left name="close"></ion-icon>
+          Откажи
+        </button>
+        <button
+          class="decline2"
+          ion-button block outline
+          color="red" [ngStyle]="{'border-color': red}"
+
+          (click)=" declineRequest(message)"
+          *ngIf="message.condition == 'Приет'"
+
+        >
+          Откажи
+        </button>
+        <button
+          class="accept2"
+          ion-button block outline
+          color="green" [ngStyle]="{'border-color': green}"
+          (click)="acceptRequest()"
+          *ngIf="message.condition == 'Отхвърлен' "
+
+        >
+          Приеми
+        </button>
+        <button
+          class="delete-business-client"
+          ion-button block outline
+          (click)=" deleteMessage(message.id)"
+          *ngIf="message.condition == 'Приет' || message.condition == 'Отхвърлен' "
+
+        >
+            Изтриване
+        </button>
+
+      </ion-list>
+
+    </ion-item>
+
+
+  </ion-card>
+
+</ion-content>

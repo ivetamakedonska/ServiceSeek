@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div >Филтриране </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+   <ion-list>
+
+     <ion-item>
+       <ion-label class="check"> Работи в момента </ion-label>
+       <ion-toggle checked="false"></ion-toggle>
+     </ion-item>
+
+     <ion-item>
+       <ion-label>Работи в</ion-label>
+       <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="event.timeStarts"></ion-datetime>
+     </ion-item>
+
+     <ion-item>
+       <ion-label>Работи през</ion-label>
+       <ion-select [(ngModel)]="working">
+         <ion-option value="monday">Понеделник</ion-option>
+         <ion-option value="tuesday">Вторник</ion-option>
+         <ion-option value="wednesday">Сряда</ion-option>
+         <ion-option value="thursday">Четвъртък</ion-option>
+         <ion-option value="friday">Петък</ion-option>
+         <ion-option value="saturday">Събота</ion-option>
+         <ion-option value="sunday">Неделя</ion-option>
+       </ion-select>
+     </ion-item>
+
+     <ion-item>
+       <ion-label class="check" > Най-харесвани</ion-label>
+       <ion-toggle (click)="mostLikedChecked()" checked="false"></ion-toggle>
+     </ion-item>
+
+     <ion-item>
+       <ion-label class="check" >Най-коментирани</ion-label>
+       <ion-toggle checked="false"></ion-toggle>
+     </ion-item>
+   </ion-list>
+
+  <button
+    ion-button full primary
+  >
+    Филтрирай
+  </button>
+
+</ion-content>

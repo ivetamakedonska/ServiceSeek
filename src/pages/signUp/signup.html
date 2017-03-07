@@ -1,0 +1,190 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+</ion-header>
+
+<ion-content class="content">
+   <form [formGroup]="register">
+      <p class="welcome">Добре дошли в</p>
+
+       <img class='logo' src="assets/img/logo/logo1.png"/>
+       <img class='logo2' src="assets/img/logo/ServiceSeek-logo.png"/>
+
+      <p class="choose">Регистрирай се като</p>
+
+      <ion-label
+              class="user-label"
+              (click)="bussinessmanChosen()"
+      >
+          Потребител
+      </ion-label>
+      <ion-checkbox
+              color="blue2"
+              [checked]="!isBussinessman"
+              class="user-checkbox"
+              (click)="bussinessmanChosen()"
+
+      >
+
+      </ion-checkbox>
+
+      <ion-label
+              class="bussinesman-label"
+              (click)="bussinessmanChosen()"
+      >
+          Бизнес клиент
+      </ion-label>
+      <ion-checkbox
+              color="orange2"
+              [checked]="isBussinessman"
+              (click)="bussinessmanChosen()"
+
+      >
+
+      </ion-checkbox>
+
+
+      <ion-list *ngIf = "!isBussinessman">
+          <ion-item class="info" id="name">
+              <ion-label floating>Име</ion-label>
+              <ion-input
+                formControlName="name"
+                type="text"
+              >
+              </ion-input>
+          </ion-item>
+        <p
+          class="error-name"
+          *ngIf = "register.controls.name.errors?.required && sumbited"              >
+          Моля въведете име
+        </p>
+
+          <ion-item class="info">
+              <ion-label floating>Фамилия</ion-label>
+              <ion-input formControlName="surname" type="text"></ion-input>
+          </ion-item>
+        <p
+          class="error-surname"
+          *ngIf = "register.controls.surname.errors?.required && sumbited"              >
+          Моля въведете фамилия
+        </p>
+          <ion-item class="info">
+              <ion-label floating>Имейл</ion-label>
+              <ion-input formControlName="email" type="text"></ion-input>
+          </ion-item>
+        <p
+          class="error-email"
+          *ngIf = "register.controls.email.errors?.required && sumbited"              >
+          Моля въведете имейл
+        </p>
+        <p
+          class="error-email"
+          *ngIf = "register.controls.email.errors?.email && sumbited"              >
+            Невалиден имейл
+        </p>
+          <ion-item class="info">
+              <ion-label floating>Парола</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+        <p
+          class="error-pass"
+          *ngIf = "register.controls.password.errors?.required && sumbited"              >
+          Моля въведете парола
+        </p>
+          <ion-item class="info">
+              <ion-label floating>Повтори парола</ion-label>
+              <ion-input formControlName="repeat" type="password"></ion-input>
+          </ion-item>
+        <p
+          class="error-repeat"
+          *ngIf = "register.controls.repeat.errors?.required && sumbited"              >
+          Моля повторете паролата
+        </p>
+
+      </ion-list>
+
+       <ion-list *ngIf = "isBussinessman">
+
+           <ion-item class="info" id="name">
+               <ion-label floating>Име</ion-label>
+               <ion-input formControlName="name" type="text"></ion-input>
+           </ion-item>
+         <p
+           class="error-name"
+           *ngIf = "register.controls.name.errors?.required && sumbited"              >
+           Моля въведете име
+         </p>
+
+         <ion-item class="info">
+           <ion-label floating>Фамилия</ion-label>
+           <ion-input formControlName="surname" type="text"></ion-input>
+         </ion-item>
+         <p
+           class="error-surname"
+           *ngIf = "register.controls.surname.errors?.required && sumbited"              >
+           Моля въведете фамилия
+         </p>
+         <ion-item class="info">
+           <ion-label floating>Имейл</ion-label>
+           <ion-input formControlName="email" type="text"></ion-input>
+         </ion-item>
+         <p
+           class="error-email"
+           *ngIf = "register.controls.email.errors?.required && sumbited"              >
+           Моля въведете имейл
+
+         </p>
+
+
+         <!--<p-->
+           <!--class="error-name"-->
+         <!--&gt;-->
+           <!--{{errors}}-->
+         <!--</p>-->
+
+         <ion-item class="info">
+           <ion-label floating>Парола</ion-label>
+           <ion-input formControlName="password" type="password"></ion-input>
+         </ion-item>
+         <p
+           class="error-pass"
+           *ngIf = "register.controls.password.errors?.required && sumbited"              >
+           Моля въведете парола
+         </p>
+         <ion-item class="info">
+           <ion-label floating>Повтори парола</ion-label>
+           <ion-input formControlName="repeat" type="password"></ion-input>
+         </ion-item>
+         <!--<p-->
+           <!--class="error-repeat"-->
+           <!--*ngIf = "register.controls.repeat.errors?.required && sumbited"              >-->
+           <!--Моля повторете паролата-->
+         <!--</p>-->
+
+
+       </ion-list>
+
+      <button
+              ion-button text-capitalize
+              large color="orange2"
+              class="login"
+              (click)="signUp()"
+      >
+          Регистрация
+      </button>
+
+  </form>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button
+      ion-button
+      clear full small
+      color="blue3"
+      (click)="login()"
+    >
+      Вече имаш създаден акаунт?
+    </button>
+  </ion-toolbar>
+</ion-footer>

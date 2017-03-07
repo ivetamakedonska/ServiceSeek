@@ -1,0 +1,266 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div [ngStyle] = "{'color':color}">{{item.name}} </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card
+          *ngIf="!_user.getUser().bussinessClient"
+  >
+
+    <ion-item>
+      <div class="items">
+        <ion-avatar  item-left>
+          <img
+            *ngIf="item.img != null"
+            class="item-img"
+            [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + item.img)"
+          />
+          <img
+            *ngIf="item.img == null"
+            class="item-img"
+            [src="assets/img/firm/noImage.png"
+          />
+
+        </ion-avatar>
+        <p class="item-name"><b>{{item.name}}</b></p>
+        <p  class="under-name">работещо в момента</p>
+
+        <button
+          #btn
+          class="likes"
+          clear large ion-button
+          (click)="onLikeClick(btn,color, item)"
+          [style.color]="!likeClicked?color:''"
+
+        >
+          <ion-icon name="thumbs-up" class="likes-icon"></ion-icon>
+        </button>
+      </div>
+    </ion-item>
+
+    <ion-card-content>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-icon name="pin"></ion-icon>
+          Адрес
+        </ion-list-header>
+        <ion-item><p class="item-info">{{item.city}}, {{item.address}}</p></ion-item>
+        <ion-list-header>
+          <ion-icon name="clock"></ion-icon>
+          Работно време
+        </ion-list-header>
+        <ion-item><p class="item-info">Делнични дни: {{item.workTimeWeekdayStart}} - {{item.workTimeWeekdayEnd}}</p></ion-item>
+        <ion-item><p class="item-info">Събота: {{item.workTimeSaturdayStart}} - {{item.workTimeSaturdayEnd}}</p></ion-item>
+        <ion-item><p class="item-info">Неделя: {{item.workTimeSundayStart}} - {{item.workTimeSundayEnd}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>
+
+          Списък с услуги
+        </ion-list-header>
+
+        <ion-list *ngFor="let service of item.services |slice:0:showed">
+          <ion-item><p class="item-info">Услуга: {{service.service}}</p></ion-item>
+          <ion-item><p class="item-info">Цена: {{service.price}}</p></ion-item>
+          <ion-item><p class="item-info">Времетраене: {{service.duration}}</p></ion-item>
+        </ion-list>
+        <button
+          ion-button small outline
+          class="show-more"
+          [ngStyle]="{'color': color, 'border-color': color}"
+          (click)="showMore()"
+          *ngIf="more==false"
+        >
+          Покажи повече</button>
+        <button
+          ion-button small outline
+          class="show-more"
+          [ngStyle]="{'color': color, 'border-color': color}"
+          (click)="showLess()"
+          *ngIf="more==true"
+        >
+          Покажи по-малко</button>
+
+        <ion-list-header>
+          <ion-icon name="information-circle"></ion-icon>
+          Повече информация
+        </ion-list-header>
+        <ion-item><p class="item-info">{{item.moreInfo}}</p></ion-item>
+      </ion-list>
+
+      <button
+        block ion-button
+        class="send-message"
+        (click)="sendMessage(item)"
+      >
+        Съобщение
+      </button>
+
+      <button
+        block ion-button
+        class="make-appointment"
+        [ngStyle] = "{'background-color':color}"
+        (click)="makeAppointement(color,item)"
+      >
+        Запиши час
+      </button>
+
+
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button
+          clear small ion-button
+          class="likes-and-comments"
+          [ngStyle] = "{'color': color, 'border-color':color}"
+          (click)="onButtonLikesClick(item)"
+        >
+          <ion-icon name="thumbs-up" class="likes-comments-icons"></ion-icon>
+          <div>{{item.getLikesLength()}} Харесвания</div>
+        </button>
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col>
+        <button
+          clear small ion-button
+          class="likes-and-comments"
+          [ngStyle] = "{'color': color, 'border-color':color}"
+          (click)="onButtonCommentsClick( color, item)"
+        >
+          <ion-icon name="text" class="likes-comments-icons "></ion-icon>
+          <div>{{item.commentsCount}} Коментара</div>
+        </button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-card>
+
+
+
+  <ion-card
+          *ngIf="_user.getUser().bussinessClient"
+  >
+
+    <ion-item>
+      <div class="items">
+        <ion-avatar  item-left>
+          <img
+            *ngIf="item.img != null"
+            class="item-img"
+            [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + item.img)"
+          />
+          <img
+            *ngIf="item.img == null"
+            class="item-img"
+            [src="assets/img/firm/noImage.png"
+          />
+        </ion-avatar>
+        <p class="item-name"><b>{{item.name}}</b></p>
+        <p  class="under-name">работещо в момента</p>
+
+      </div>
+    </ion-item>
+
+    <ion-card-content>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-icon name="pin"></ion-icon>
+          Адрес
+        </ion-list-header>
+        <ion-item><p class="item-info">{{item.city}}, {{item.address}}</p></ion-item>
+        <ion-list-header>
+          <ion-icon name="alarm"></ion-icon>
+          Работно време
+        </ion-list-header>
+        <ion-item><p class="item-info">Делнични дни: {{item.workTimeWeekday}}</p></ion-item>
+        <ion-item><p class="item-info">Събота: {{item.workTimeSaturday}}</p></ion-item>
+        <ion-item><p class="item-info">Неделя: {{item.workTimeSunday}}</p></ion-item>
+
+        <ion-list-header>
+          <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>
+
+          Списък с услуги
+        </ion-list-header>
+
+        <ion-list *ngFor="let service of item.services | slice:0:showed">
+          <ion-item><p class="item-info">Услуга: {{service.service}}</p></ion-item>
+          <ion-item><p class="item-info">Цена: {{service.price}}</p></ion-item>
+          <ion-item><p class="item-info">Времетраене: {{service.duration}}</p></ion-item>
+        </ion-list>
+        <button
+          ion-button small outline
+          class="show-more"
+          [ngStyle]="{'color': color, 'border-color': color}"
+          (click)="showMore()"
+          *ngIf="more==false"
+        >
+          Покажи повече</button>
+        <button
+          ion-button small outline
+          class="show-more"
+          [ngStyle]="{'color': color, 'border-color': color}"
+          (click)="showLess()"
+          *ngIf="more==true"
+        >
+          Покажи по-малко</button>
+        <ion-list-header>
+          <ion-icon name="information-circle"></ion-icon>
+          Повече информация
+        </ion-list-header>
+        <ion-item><p class="item-info">{{item.moreInfo}}</p></ion-item>
+      </ion-list>
+
+
+      <button
+              block ion-button
+              class="make-appointment"
+              [ngStyle] = "{'background-color':color}"
+              (click)="editFirm(item, color)"
+
+      >
+        Редактирай
+      </button>
+
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button
+                clear small ion-button
+                class="likes-and-comments"
+                [ngStyle] = "{'color': color, 'border-color':color}"
+                (click)="onButtonLikesClick(item)"
+        >
+          <ion-icon name="thumbs-up" class="likes-comments-icons"></ion-icon>
+          <div>{{item.getLikesLength()}} Харесвания</div>
+        </button>
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col>
+        <button
+                clear small ion-button
+                class="likes-and-comments"
+                [ngStyle] = "{'color': color, 'border-color':color}"
+                (click)="onButtonCommentsClick( color, item)"
+        >
+          <ion-icon name="text" class="likes-comments-icons "></ion-icon>
+          <div>{{item.commentsCount}} Коментара</div>
+        </button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-card>
+
+
+</ion-content>

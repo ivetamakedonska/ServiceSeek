@@ -1,0 +1,27 @@
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="Главно меню" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Настройки" tabIcon="settings"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="Съобщения" tabIcon="chatboxes"></ion-tab>
+
+  <ion-tab
+          *ngIf="!(_user.getUser().bussinessClient)"
+          [root]="tab3Root"
+          tabTitle="Заявки"
+          tabIcon="filing"
+          [tabBadge] = "_messages.getNewAnswers()"
+  >
+
+  </ion-tab>
+  <ion-tab
+          *ngIf="_user.getUser().bussinessClient"
+          [root]="tab4Root"
+          tabTitle="Запитвания"
+          tabIcon="filing"
+          [tabBadge] = "_messages.getNewRequests()"
+
+  >
+
+  </ion-tab>
+
+
+</ion-tabs>

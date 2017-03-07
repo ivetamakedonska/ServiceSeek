@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div [ngStyle] = "{'color': data.color}">{{data.name}} </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <button
+    ion-button block outline
+    *ngIf="this._user.getUser().bussinessClient && !clicked"
+    [ngStyle] = "{'color': data.color,'border-color': data.color}"
+    (click)="createFirm()"
+  >
+    Създай фирма
+  </button>
+
+  <ion-list *ngIf="!clicked">
+    <button ion-item class = "subCategory-btn"
+            *ngFor="let item of subCategories"
+            [ngStyle]="{'background-color': item.color}"
+            (click)="openNavDetailsPage(item.$key ,item.name, item.color)"
+    >
+      <img class='sub-icons' src="assets/img/subCategories/{{item.icon}}" />
+      <p class="subcategory-name"><b>{{item.name}}</b></p>
+    </button>
+  </ion-list>
+
+  <button
+          ion-button  outline
+          class="decline"
+          [ngStyle] = "{'color': data.color,'border-color': data.color}"
+          (click)="declineClick()"
+          *ngIf="clicked"
+
+  >
+    Отказване
+  </button>
+  <button
+          ion-button  outline
+          class="continue"
+          *ngIf="clicked"
+          [ngStyle] = "{'color': data.color,'border-color': data.color}"
+          (click)="continue()"
+  >
+    Продължи
+  </button>
+
+  <ion-list *ngIf="clicked">
+    <ion-item class = "subCategory-btn"
+            *ngFor="let item of subCategories"
+            [ngStyle]="{'background-color': item.color}"
+    >
+      <ion-label>
+        <img class='sub-icons' src="assets/img/subCategories/{{item.icon}}" />
+        <p class="subcategory-name"><b>{{item.name}}</b></p>
+      </ion-label>
+
+      <ion-checkbox
+              color="white"
+              checked="false"
+              class="check-box"
+              (click)="checkBoxClick(item)"
+      >
+
+      </ion-checkbox>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

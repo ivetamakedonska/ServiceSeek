@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Отказани
+        </ion-title>
+    </ion-navbar>
+  <ion-searchbar (ionInput)="searchRequests($event)"></ion-searchbar>
+</ion-header>
+
+
+
+<ion-content>
+    <ion-list >
+      <button
+        ion-item
+        class = "home-page-categories-btn"
+        *ngFor="let message of messages | declined"
+        (click)="onMessageClick(message)"
+      >
+        <ion-checkbox
+          *ngIf="clicked"
+          color="white"
+          checked="false"
+          class="check-box"
+          (click)="chooseDeleted(message)"
+        >
+
+        </ion-checkbox>
+        <ion-avatar
+                item-left>
+          <img *ngIf="message.userImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.userImg)">
+          <img *ngIf="message.userImg == null" class="avatar" src="assets/img/users/noPhoto.png">
+        </ion-avatar>
+        <p class="name"><b>{{message.userName}}</b></p>
+        <p class="service"> {{message.service}}</p>
+        <p class="service"> {{message.date}}, {{message.time}}</p>
+
+        <ion-note class="time">
+            {{message.askedTime}}
+        </ion-note>
+      </button>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="white">
+    <button
+      ion-button block outline
+      class="delete-more"
+      *ngIf="!clicked"
+      (click)="isClicked()"
+    >
+      Изтриване
+    </button>
+
+    <button
+      ion-button block outline
+      class="delete"
+      *ngIf="clicked"
+      (click)="delete()"
+    >
+      Изтриване
+    </button>
+    <button
+      ion-button="" block outline
+      class="stop"
+      *ngIf="clicked"
+      (click)="stop()"
+    >
+      Прекрати
+    </button>
+
+  </ion-toolbar>
+</ion-footer>

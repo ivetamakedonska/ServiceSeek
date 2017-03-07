@@ -1,0 +1,38 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+</ion-header>
+
+<ion-content class="content">
+
+  <img class='logo' src="assets/img/logo/logo1.png"/>
+  <img class='logo2' src="assets/img/logo/ServiceSeek-logo.png"/>
+
+  <hr id="top-hr">
+
+  <button
+          ion-button text-capitalize
+          large color="blue2"
+          class="login"
+          (click)="signInClick()"
+  >
+    Влизане
+  </button>
+  <p class="or"><b>ИЛИ</b></p>
+  <button
+          ion-button text-capitalize
+          large color="orange2"
+          class="login"
+          (click)="signUpClick()"
+  >
+    Регистрация
+  </button>
+
+  <ion-list *ngFor="let item of items | async">
+    <ion-item>
+      {{item.description }}
+    </ion-item>
+  </ion-list>
+
+  <hr id="bottom-hr">
+
+
+</ion-content>

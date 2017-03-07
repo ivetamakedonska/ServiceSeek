@@ -1,0 +1,174 @@
+<ion-header *ngIf="!(_user.getUser()?.bussinessClient) ">
+  <ion-navbar>
+    <ion-title>
+      Известия
+    </ion-title>
+  </ion-navbar>
+  <ion-searchbar (ionInput)="searchRequests($event)"></ion-searchbar>
+</ion-header>
+
+<ion-header *ngIf="(_user.getUser()?.bussinessClient)">
+  <ion-navbar>
+    <ion-title>
+       Запитвания
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="!(_user.getUser()?.bussinessClient) ">
+    <ion-item
+      class = "home-page-categories-btn"
+      *ngFor="let message of messages"
+      (click)="onMessageClick(message)"
+      [class.not-seen]="message.answered == true && message.openedByUser == false"
+
+    >
+      <ion-checkbox
+        *ngIf="clicked"
+        color="white"
+        checked="false"
+        class="check-box"
+        (click)="chooseDeleted(message)"
+      >
+
+      </ion-checkbox>
+      <ion-avatar
+        item-left>
+        <img *ngIf="message.firmImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.firmImg)">
+        <img *ngIf="message.firmImg == null" class="avatar" src="assets/img/firm/noImage.png">
+      </ion-avatar>
+
+      <p class="name"><b>{{message.firmName}}</b></p>
+      <p class="service"> {{message.service}}</p>
+      <p class="service"> {{message.date}}, {{message.time}}</p>
+      <ion-icon [ngStyle]="{'color': message.color}"
+                class="message-icon"
+                name={{message.iconName}}>
+
+      </ion-icon>
+      <span class="condition">{{message.condition}}</span>
+      <ion-note class="time">
+        {{message.askedTime}}
+      </ion-note>
+
+    </ion-item>
+  </ion-list>
+
+
+  <button *ngIf="(_user.getUser()?.bussinessClient)"
+          ion-button
+          class = "accepted"
+          (click)="onAcceptedClick(messages)"
+  >
+    Приети
+  </button>
+  <button *ngIf="(_user.getUser()?.bussinessClient)"
+          ion-button
+          class = "declined"
+          (click)="onDeclinedClick(messages)"
+  >
+    Отказани
+  </button>
+
+  <ion-searchbar *ngIf="(_user.getUser()?.bussinessClient)" (ionInput)="searchRequests($event)"></ion-searchbar>
+
+
+
+  <ion-list *ngIf="(_user.getUser()?.bussinessClient)">
+    <button
+            ion-item
+            class = "home-page-categories-btn"
+            *ngFor="let message of messages | waiting"
+            (click)="onMessageClick(message)"
+            [class.not-seen]="message.opened == false"
+
+    >
+      <ion-checkbox
+        *ngIf="clicked"
+        color="white"
+        checked="false"
+        class="check-box"
+        (click)="chooseDeleted(message)"
+      >
+
+      </ion-checkbox>
+      <ion-avatar
+              item-left>
+
+        <img *ngIf="message.userImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + message.userImg)">
+        <img *ngIf="message.userImg == null" class="avatar" src="assets/img/users/noPhoto.png">
+      </ion-avatar>
+      <p class="name"><b>{{message.userName}}</b></p>
+      <p class="service"> {{message.service}}</p>
+      <p class="service"> {{message.date}}, {{message.time}}</p>
+
+      <ion-note class="time">
+        {{message.askedTime}}
+      </ion-note>
+    </button>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="white">
+    <button
+      ion-button block outline
+      class="delete-more"
+      *ngIf="!clicked && !_user.getUser()?.bussinessClient"
+      (click)="isClicked()"
+    >
+      Изтриване
+    </button>
+    <button
+      ion-button block outline
+      class="delete-more"
+      *ngIf="!clicked && _user.getUser()?.bussinessClient"
+      (click)="isClicked()"
+    >
+      Отговор
+    </button>
+    <button
+      ion-button block outline
+      class="delete"
+      *ngIf="clicked && !_user.getUser()?.bussinessClient"
+      (click)="delete()"
+    >
+      Изтриване
+    </button>
+    <button
+      ion-button="" block outline
+      class="stop"
+      *ngIf="clicked && !_user.getUser()?.bussinessClient"
+      (click)="stop()"
+    >
+      Прекрати
+    </button>
+    <button
+      ion-button block outline
+      class="accept"
+      *ngIf="clicked && _user.getUser()?.bussinessClient"
+      (click)="accept()"
+    >
+      Приеми
+    </button>
+    <button
+      ion-button block outline
+      class="decline"
+      *ngIf="clicked && _user.getUser()?.bussinessClient"
+      (click)="decline()"
+    >
+      Откажи
+    </button>
+    <button
+      ion-button="" block outline
+      class="close"
+      *ngIf="clicked && _user.getUser()?.bussinessClient"
+      (click)="stop()"
+    >
+      Прекрати
+    </button>
+  </ion-toolbar>
+</ion-footer>

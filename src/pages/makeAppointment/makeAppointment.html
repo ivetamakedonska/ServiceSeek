@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div [ngStyle] = "{'color':data.color}">Запази час</div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+
+  <ion-list class="list" >
+
+
+    <ion-item>
+      <ion-label>Услуга</ion-label>
+      <ion-select [(ngModel)]="services" (ionChange)="check($event)" okText="Избери" cancelText="Затвори" >
+        <ion-option *ngFor="let service of item.services; let i = index" [value]="i" value="{{service.service}}">{{service.service}}</ion-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-list class="list" >
+      <ion-item *ngIf="selectedServices!=null">
+        <p class="item-info">Времетраене: {{selectedServices.duration}}</p>
+      </ion-item>
+      <ion-item *ngIf="selectedServices!=null">
+        <p class="item-info">Цена: {{selectedServices.price}}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label>Дата</ion-label>
+      <ion-datetime
+        #date
+        displayFormat="MMM DD YYYY"
+        [(ngModel)]="event.month"
+        min="2017-01-01"
+        max="2017-31-12"
+      >
+
+      </ion-datetime>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Час</ion-label>
+      <ion-datetime #time displayFormat="HH:mm" pickerFormat="HH:mm"
+                    [(ngModel)]="event.timeStarts"
+                    [hourValues]="workingHours"
+      >
+
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-input #more placeholder="Повече информация"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button full
+          [ngStyle] = "{'background-color':data.color}"
+          (click)="confirm(service, date, time, more)"
+  >
+    Запази час
+  </button>
+
+</ion-content>
+
+

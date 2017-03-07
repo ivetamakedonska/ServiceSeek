@@ -1,0 +1,32 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+  <ion-navbar>
+    <img class='logo' src="assets/img/logo/logo1.png"/>
+    <img class='logo-2' src="assets/img/logo/ServiceSeek-logo.png"/>
+    <button
+            ion-button clear big
+            class="search"
+            (click)="onSearchClick()"
+    >
+      <ion-icon name="search"
+                color="blue1"
+                class="icon"
+      >
+      </ion-icon>
+    </button>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item class = "home-page-categories-btn"
+            *ngFor="let item of _category.getCategories()"
+            (click)="openNavDetailsPage(item.$key,item.name, item.color)"
+            [ngStyle]="{'background-color': item.color}"
+
+    >
+      <img class='icons' src="assets/img/categories/{{item.icon}}" />
+      <p class="category-names"><b>{{item.name}}</b></p>
+    </button>
+  </ion-list>
+</ion-content>
