@@ -103,31 +103,15 @@ export class AllMessages {
 
   ) {
     this.user = this._user.getUser();
-    if(!this.user.bussinessClient) {
       this._messages.getUserMessages(this.user.uid).subscribe( (a) =>
       {
         this.userMessages = a.map((e) => {
           return new ConversationModel(e);
         })
-        console.log(this.userMessages[0].messages[Object.keys(this.userMessages[0].messages)[Object.keys(this.userMessages[0].messages).length - 1]]);
+        // console.log(this.userMessages[0].messages[Object.keys(this.userMessages[0].messages)[Object.keys(this.userMessages[0].messages).length - 1]]);
 
-        this.businessMessages = a.map((e) => {
-          return new ConversationModel(e);
-        })
-      })
-    } else {
-
-      this._messages.getBusinessMessages(this.user.uid).subscribe( (a) =>
-      {
-        this.userMessages = a.map((e) => {
-          return new ConversationModel(e);
-        })
-        this.businessMessages = a.map((e) => {
-          return new ConversationModel(e);
-        })
       })
 
-    }
 
 
   }

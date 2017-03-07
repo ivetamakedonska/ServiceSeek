@@ -17,6 +17,7 @@ import { UserModel } from "../../models/userModel";
 
 //Components
 import {ChangePass} from '../changePass/changePass';
+import {AuthenticationPage} from '../authentication/authentication';
 
 declare let cordova: any;
 let FilePath: any = window["IonicNative"].FilePath;
@@ -103,15 +104,14 @@ export class AboutPage {
   }
 
   signOut() {
-    // this.user = null;
-    // firebase.auth().signOut().then(()=> {
-      // this._auth.signOut();
-    // }, (error) => {
-    //   // An error happened.
-    // });
-    this.user = null;
-    this.auth$.logout();
-
+    this.nav.push(AuthenticationPage);
+    this.authState = this.auth$.getAuth();
+    console.log(this.authState)
+    this.auth$.subscribe((state: FirebaseAuthState) => {
+      state = null;
+      this.authState = state;
+    });
+    this.af.auth.logout();
   }
 
   changePhotoOptions() {

@@ -6,11 +6,14 @@ import { AuthService } from '../../services/authService';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {NavController} from 'ionic-angular';
 import { AngularFire} from 'angularfire2';
+import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
+
 
 import {validPass} from '../errors/errors';
 
 //components
 import {Login} from '../logIn/login';
+import {HomePage} from '../home/home'
 
 
 @Component({
@@ -127,6 +130,10 @@ import {Login} from '../logIn/login';
         color: red;
         margin-top: 2%;
     }
+    
+    .name, .surname, .password, .repeat, .mail {
+        color: #999;
+    }
      
      .input-has-focus .label-ios[floating], .input-has-value .label-ios[floating] {
         color: #008ae6;
@@ -196,10 +203,16 @@ export class SingUp {
     });
 
     private sumbited = false;
+    private authState: FirebaseAuthState;
+
     constructor(private _auth: AuthService,
                 public nav: NavController,
-                private af: AngularFire) {
-
+                private af: AngularFire,
+                public auth$: AngularFireAuth) {
+        this.authState = auth$.getAuth();
+        auth$.subscribe((state: FirebaseAuthState) => {
+            this.authState = state;
+        });
     }
 
 
@@ -213,14 +226,17 @@ export class SingUp {
       this.errors = [];
       this.sumbited = true;
       if(this.register.valid) {
-        const auth = firebase.auth();
+        // const auth = firebase.auth();
         const email = this.register.controls['email'].value;
         const password = this.register.controls['password'].value;
         const repeat = this.register.controls['repeat'].value;
         if(repeat == password) {
-          const promise = auth.createUserWithEmailAndPassword(email, password)
-            .then((user) => {
-              const items = this.af.database.list('/userInfo');
+            this.af.auth.createUser({ email: email, password: password });
+
+            this.auth$.subscribe((user: FirebaseAuthState) => {
+                console.log(user)
+
+                const items = this.af.database.list('/userInfo');
 
               items.push({
                 surname: this.register.controls['surname'].value,
@@ -229,15 +245,36 @@ export class SingUp {
                 uid: user.uid
               });
             });
-          promise.catch(er =>
-          {
-            if(er != null) {
-              this.errors.push(er.message);
-              console.log(this.errors)
-            } else {
-              this._auth.login();
-            }
-          });
+          // promise.catch(er =>
+          // {
+          //   if(er != null) {
+          //     this.errors.push(er.message);
+          //     console.log(this.errors)
+          //   } else {
+          //     this._auth.login();
+          //   }
+          // });
+
+            // const promise = auth.createUserWithEmailAndPassword(email, password)
+          //   .then((user) => {
+          //     const items = this.af.database.list('/userInfo');
+          //
+          //     items.push({
+          //       surname: this.register.controls['surname'].value,
+          //       name: this.register.controls['name'].value,
+          //       bussinessClient: this.isBussinessman,
+          //       uid: user.uid
+          //     });
+          //   });
+          // promise.catch(er =>
+          // {
+          //   if(er != null) {
+          //     this.errors.push(er.message);
+          //     console.log(this.errors)
+          //   } else {
+          //     this._auth.login();
+          //   }
+          // });
         }
       }
     }

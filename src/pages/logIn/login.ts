@@ -70,6 +70,10 @@ import {SingUp} from '../signUp/signup';
       .input-has-focus .label-md[floating], .input-has-value .label-md[floating] {
         color: #008ae6;
       }
+      
+      .mail, .password {
+        color: #999;
+      }
    `]
 })
 export class Login {

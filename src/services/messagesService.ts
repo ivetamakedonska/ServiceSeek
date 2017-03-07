@@ -35,49 +35,7 @@ export class MessagesService {
   }
 
   getUserMessages($key) {
-    return this.af.database.list('/messages', {
-      query: {
-        orderByChild: 'userId',
-        equalTo: $key
-      }})
+    return this.af.database.list('/messages')
   }
-
-  getBusinessMessages($key) {
-    return this.af.database.list('/messages', {
-      query: {
-        orderByChild: 'businessId',
-        equalTo: $key
-      }})
-  }
-
-  getNewRequests() {
-    return this.newRequests;
-  }
-
-  removeNewRequest() {
-    if(this.newRequests > 0) {
-      this.newRequests--;
-    } else {
-      this.newRequests =0;
-    }
-  }
-
-  getNewAnswers() {
-    return this.newAnswers;
-  }
-
-  removeNewAnswers() {
-    this.newAnswers--;
-  }
-
-  // getAccepted() {
-  //   return this.af.database.list('/requests', {
-  //     query: {
-  //       orderByChild: 'condition',
-  //       equalTo: "Приет"
-  //     }})
-  // }
-
-
 
 }

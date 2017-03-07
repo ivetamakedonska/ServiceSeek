@@ -32,18 +32,19 @@
       </ion-avatar>
 
       <p class="name"><b>{{message.firmName}}</b></p>
-      <p class="date" *ngIf="message.messages != null">
-        {{message.messages[Object.keys(message.messages)[Object.keys(message.messages).length - 1]].date}}
-      </p>
+      <!--<p class="date" *ngIf="message.messages != null">-->
+        <!--{{message.messages[Object.keys(message.messages)[Object.keys(message.messages).length - 1]].date}}-->
+      <!--</p>-->
       <!--<p class="message" *ngIf="message.messages != null">{{message.messages[0].message}}</p>-->
 
     </ion-item>
   </ion-list>
 
   <ion-list *ngIf="_user.getUser()?.bussinessClient">
+
     <ion-item
       class = "home-page-categories-btn"
-      *ngFor="let message of businessMessages"
+      *ngFor="let message of userMessages"
       (click)="onMessageClick(message)"
 
     >
@@ -62,9 +63,10 @@
         <img *ngIf="message.userImg == null" class="avatar" src="assets/img/firm/noImage.png">
       </ion-avatar>
 
-      <p class="name"><b>{{message.userName}}</b></p>
-      <p class="date"> {{message.messages[0].date}}</p>
-      <p class="message">{{message.messages[0].message}}</p>
+
+      <p class="name"><b>{{message.userName}} - {{message.firmName}}</b></p>
+      <!--<p class="date"> {{message.messages[0].date}}</p>-->
+      <!--<p class="message">{{message.messages[0].message}}</p>-->
 
     </ion-item>
   </ion-list>

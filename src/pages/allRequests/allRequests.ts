@@ -51,7 +51,7 @@ import {UserModel} from '../../models/userModel';
      .accepted {
         background-color: #32CD32;
         width: 50%;
-        display: inline;
+        display: inline-table;
         margin: 0;
         margin-right: -1%;
      }
@@ -59,7 +59,7 @@ import {UserModel} from '../../models/userModel';
      .declined {
         background-color: red;
         width: 50%;
-        display: inline;
+        display: inline-table;
         margin: 0;
         margin-right: -1%;
      }

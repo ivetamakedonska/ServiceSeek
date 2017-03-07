@@ -44,7 +44,7 @@
 
       <ion-list *ngIf = "!isBussinessman">
           <ion-item class="info" id="name">
-              <ion-label floating>Име</ion-label>
+              <ion-label floating class="name">Име</ion-label>
               <ion-input
                 formControlName="name"
                 type="text"
@@ -58,7 +58,7 @@
         </p>
 
           <ion-item class="info">
-              <ion-label floating>Фамилия</ion-label>
+              <ion-label floating class="surname">Фамилия</ion-label>
               <ion-input formControlName="surname" type="text"></ion-input>
           </ion-item>
         <p
@@ -67,7 +67,7 @@
           Моля въведете фамилия
         </p>
           <ion-item class="info">
-              <ion-label floating>Имейл</ion-label>
+              <ion-label floating class="mail">Имейл</ion-label>
               <ion-input formControlName="email" type="text"></ion-input>
           </ion-item>
         <p
@@ -81,7 +81,7 @@
             Невалиден имейл
         </p>
           <ion-item class="info">
-              <ion-label floating>Парола</ion-label>
+              <ion-label floating class="password">Парола</ion-label>
               <ion-input formControlName="password" type="password"></ion-input>
           </ion-item>
         <p
@@ -90,7 +90,7 @@
           Моля въведете парола
         </p>
           <ion-item class="info">
-              <ion-label floating>Повтори парола</ion-label>
+              <ion-label floating class="repeat">Повтори парола</ion-label>
               <ion-input formControlName="repeat" type="password"></ion-input>
           </ion-item>
         <p
@@ -104,7 +104,7 @@
        <ion-list *ngIf = "isBussinessman">
 
            <ion-item class="info" id="name">
-               <ion-label floating>Име</ion-label>
+               <ion-label floating class="name">Име</ion-label>
                <ion-input formControlName="name" type="text"></ion-input>
            </ion-item>
          <p
@@ -114,7 +114,7 @@
          </p>
 
          <ion-item class="info">
-           <ion-label floating>Фамилия</ion-label>
+           <ion-label floating class="surname">Фамилия</ion-label>
            <ion-input formControlName="surname" type="text"></ion-input>
          </ion-item>
          <p
@@ -123,7 +123,7 @@
            Моля въведете фамилия
          </p>
          <ion-item class="info">
-           <ion-label floating>Имейл</ion-label>
+           <ion-label floating class="mail">Имейл</ion-label>
            <ion-input formControlName="email" type="text"></ion-input>
          </ion-item>
          <p
@@ -141,7 +141,7 @@
          <!--</p>-->
 
          <ion-item class="info">
-           <ion-label floating>Парола</ion-label>
+           <ion-label floating class="password">Парола</ion-label>
            <ion-input formControlName="password" type="password"></ion-input>
          </ion-item>
          <p
@@ -150,7 +150,7 @@
            Моля въведете парола
          </p>
          <ion-item class="info">
-           <ion-label floating>Повтори парола</ion-label>
+           <ion-label floating class="repeat">Повтори парола</ion-label>
            <ion-input formControlName="repeat" type="password"></ion-input>
          </ion-item>
          <!--<p-->

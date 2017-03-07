@@ -42,7 +42,7 @@ import {MessageDetails} from '../request-details/request-details';
      
        .delete {
           width: 49%;
-          display: inline;    
+          display: inline-table;    
           color: red;
           border-color: red;
           height: 36px !important;
@@ -51,7 +51,7 @@ import {MessageDetails} from '../request-details/request-details';
    
        .stop {
          width: 49%;
-         display: inline;
+         display: inline-table;
          height: 36px !important;
        }
        
@@ -61,6 +61,10 @@ import {MessageDetails} from '../request-details/request-details';
       
        .searchbar-ios {
          background: transparent !important;
+      }
+      
+      .time {
+        font-size: 1.5rem;
       }
 
   `]
