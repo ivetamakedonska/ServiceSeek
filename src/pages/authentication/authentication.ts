@@ -30,6 +30,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
      #top-hr {
        background: #4db8ff;
        width: 70%;
+       
      }
      
      .login{
