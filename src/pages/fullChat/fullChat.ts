@@ -167,7 +167,7 @@ export class FullChat {
 
   private user: UserModel;
   private data:any;
-  private chat: ConversationModel;
+  private chat: any;
   private messages: any;
   private keys: Array<any>;
 
@@ -177,14 +177,23 @@ export class FullChat {
               private _user: UserService,
               private af: AngularFire,
               private _DomSanitizationService: DomSanitizer,
-              private params: NavParams
+              private params: NavParams,
+              private _messages: MessagesService,
+
 
   ) {
     this.data = this.params.data;
     this.chat = this.data.chat;
-    this.messages = this.chat.messages;
+    this._messages.getChosen(this.data.chat.$key).subscribe( (a) =>
+    {
+      console.log(a);
+      this.messages = a[0].messages;
+      this.keys = this.messages ? Object.keys(this.messages) :[];
+
+      // console.log(this.userMessages[0].messages[Object.keys(this.userMessages[0].messages)[Object.keys(this.userMessages[0].messages).length - 1]]);
+
+    })
     this.user = this._user.getUser();
-    this.keys = this.chat.messages ? Object.keys(this.chat.messages) :[];
 
   }
 
@@ -197,7 +206,10 @@ export class FullChat {
         isBusinessClient: this.user.bussinessClient,
         message: message.value
       })
-      message.value = ''
+      message.value = '';
+      // this.messages.push(message);
+      console.log(message);
+
     }
   }
 

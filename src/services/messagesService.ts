@@ -30,8 +30,13 @@ export class MessagesService {
     })
   }
 
-  getMesages() {
-    return this.af.database.list('/messages');
+  getChosen($key) {
+    return this.af.database.list('/messages', {
+      query: {
+        orderByChild: '$key',
+        equalTo: $key,
+        orderByKey: true
+      }})
   }
 
   getUserMessages($key) {

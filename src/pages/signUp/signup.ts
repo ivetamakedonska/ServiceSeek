@@ -231,20 +231,36 @@ export class SingUp {
         const password = this.register.controls['password'].value;
         const repeat = this.register.controls['repeat'].value;
         if(repeat == password) {
-            this.af.auth.createUser({ email: email, password: password });
+            this.af.auth.createUser({ email: email, password: password })
+                .then((user) => {
+                    console.log(user);
+                    const items = this.af.database.list('/userInfo');
 
-            this.auth$.subscribe((user: FirebaseAuthState) => {
-                console.log(user)
-
-                const items = this.af.database.list('/userInfo');
-
-              items.push({
-                surname: this.register.controls['surname'].value,
-                name: this.register.controls['name'].value,
-                bussinessClient: this.isBussinessman,
-                uid: user.uid
-              });
-            });
+                      items.push({
+                        surname: this.register.controls['surname'].value,
+                        name: this.register.controls['name'].value,
+                        bussinessClient: this.isBussinessman,
+                        uid: user.uid
+                      });
+                })
+                .catch(er => {
+                    if (er != null) {
+                        this.errors.push(er.message);
+                        console.log(this.errors)
+                    }
+                })
+            // this.auth$.subscribe((user: FirebaseAuthState) => {
+            //     console.log(user)
+            //
+            //     const items = this.af.database.list('/userInfo');
+            //
+            //   items.push({
+            //     surname: this.register.controls['surname'].value,
+            //     name: this.register.controls['name'].value,
+            //     bussinessClient: this.isBussinessman,
+            //     uid: user.uid
+            //   });
+            // });
           // promise.catch(er =>
           // {
           //   if(er != null) {
