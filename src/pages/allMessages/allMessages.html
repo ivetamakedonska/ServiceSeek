@@ -11,9 +11,12 @@
 <ion-content>
   <ion-list *ngIf="!(_user.getUser()?.bussinessClient) ">
     <ion-item
-      class = "home-page-categories-btn"
-      *ngFor="let message of userMessages"
-      (click)="onMessageClick(message)"
+
+            class = "home-page-categories-btn"
+          *ngFor="let message of messages"
+            [class.not-seen]="!message.seenByUser"
+
+            (click)="onMessageClick(message)"
 
     >
       <ion-checkbox
@@ -43,9 +46,12 @@
   <ion-list *ngIf="_user.getUser()?.bussinessClient">
 
     <ion-item
-      class = "home-page-categories-btn"
-      *ngFor="let message of userMessages"
+
+            class = "home-page-categories-btn"
+      *ngFor="let message of messages"
       (click)="onMessageClick(message)"
+            [class.not-seen]="!message.seenByFirm"
+
 
     >
       <ion-checkbox
@@ -73,64 +79,3 @@
 
 
 </ion-content>
-
-<!--<ion-footer>-->
-  <!--<ion-toolbar color="white">-->
-    <!--<button-->
-      <!--ion-button block outline-->
-      <!--class="delete-more"-->
-      <!--*ngIf="!clicked && !_user.getUser()?.bussinessClient"-->
-      <!--(click)="isClicked()"-->
-    <!--&gt;-->
-      <!--Изтриване-->
-    <!--</button>-->
-    <!--<button-->
-      <!--ion-button block outline-->
-      <!--class="delete-more"-->
-      <!--*ngIf="!clicked && _user.getUser()?.bussinessClient"-->
-      <!--(click)="isClicked()"-->
-    <!--&gt;-->
-      <!--Отговор-->
-    <!--</button>-->
-    <!--<button-->
-      <!--ion-button block outline-->
-      <!--class="delete"-->
-      <!--*ngIf="clicked && !_user.getUser()?.bussinessClient"-->
-      <!--(click)="delete()"-->
-    <!--&gt;-->
-      <!--Изтриване-->
-    <!--</button>-->
-    <!--<button-->
-      <!--ion-button="" block outline-->
-      <!--class="stop"-->
-      <!--*ngIf="clicked && !_user.getUser()?.bussinessClient"-->
-      <!--(click)="stop()"-->
-    <!--&gt;-->
-      <!--Прекрати-->
-    <!--</button>-->
-    <!--<button-->
-      <!--ion-button block outline-->
-      <!--class="accept"-->
-      <!--*ngIf="clicked && _user.getUser()?.bussinessClient"-->
-      <!--(click)="accept()"-->
-    <!--&gt;-->
-      <!--Приеми-->
-    <!--</button>-->
-    <!--<button-->
-      <!--ion-button block outline-->
-      <!--class="decline"-->
-      <!--*ngIf="clicked && _user.getUser()?.bussinessClient"-->
-      <!--(click)="decline()"-->
-    <!--&gt;-->
-      <!--Откажи-->
-    <!--</button>-->
-    <!--<button-->
-      <!--ion-button="" block outline-->
-      <!--class="close"-->
-      <!--*ngIf="clicked && _user.getUser()?.bussinessClient"-->
-      <!--(click)="stop()"-->
-    <!--&gt;-->
-      <!--Прекрати-->
-    <!--</button>-->
-  <!--</ion-toolbar>-->
-<!--</ion-footer>-->

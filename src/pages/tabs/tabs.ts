@@ -9,6 +9,7 @@ import { AllMessages } from '../allMessages/allMessages';
 //Services
 import {UserService} from "../../services/userService";
 import {RequestsService} from '../../services/requestsService';
+import {MessagesService} from '../../services/messagesService';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class TabsPage {
   tab5Root: any = AllMessages;
 
   constructor(private _user : UserService,
-              private _messages: RequestsService
+              private _requests: RequestsService,
+              private _chat: MessagesService
   ) {
   }
 

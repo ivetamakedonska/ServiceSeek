@@ -25,7 +25,7 @@ import {RequestModel} from '../../models/requestModel';
         border: 1px solid #dedede;
         width: 100%;
         max-width: 7rem;
-        max-height: 7rem;
+        min-height: 7rem;
         border-radius: 1rem;
         float: left;
      }

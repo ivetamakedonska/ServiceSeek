@@ -9,6 +9,10 @@ export class ConversationModel {
   userImg: string;
   userId: string;
   messages: Array<MessageModel>;
+  seenByUser: boolean;
+  seenByFirm: boolean;
+  answeredByFirm: boolean;
+  answeredByUser: boolean;
 
   constructor({
     $key,
@@ -18,7 +22,12 @@ export class ConversationModel {
     userName,
     userImg,
     userId,
-    messages
+    messages,
+      seenByUser,
+      seenByFirm,
+      answeredByFirm,
+      answeredByUser
+
   })
   {
     this.$key = $key;
@@ -29,6 +38,10 @@ export class ConversationModel {
     this.userImg = userImg;
     this.userId = userId;
     this.messages = messages;
+    this.seenByFirm = seenByFirm;
+    this.seenByUser = seenByUser;
+    this.answeredByUser = answeredByUser;
+    this.answeredByFirm = answeredByFirm;
   }
 }
 /**

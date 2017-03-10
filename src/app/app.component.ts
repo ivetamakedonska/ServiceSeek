@@ -29,7 +29,6 @@ export class MyApp {
 
       auth$.getAuth();
       auth$.subscribe((state: FirebaseAuthState) => {
-        console.log(state);
         if (state != null) {
           this.af.database.list('/userInfo', {
             query: {

@@ -16,16 +16,29 @@ export class MessagesService {
 
   private requests: Array<ConversationModel>;
   private messages: Array<ConversationModel>;
-  private newRequests: number;
-  private newAnswers: number;
+  private newMessagesUser: number;
+  private newMessagesFirm: number;
 
 
   constructor( private af: AngularFire, private _user: UserService) {
 
-    af.database.list('/messages').subscribe( (a) =>
-    {
+    af.database.list('/messages').subscribe( (a) => {
+
+      a.forEach(chat => {
+        this.newMessagesUser = 0;
+        this.newMessagesFirm = 0;
+
+        if (chat.seenByUser == false) {
+          this.newMessagesUser++;
+        }
+        if (chat.seenByFirm == false) {
+          this.newMessagesFirm++;
+          console.log(this.newMessagesFirm)
+        }
+      })
       this.requests = a.map((e) => {
         return new ConversationModel(e);
+
       })
     })
   }
@@ -36,11 +49,20 @@ export class MessagesService {
         orderByChild: '$key',
         equalTo: $key,
         orderByKey: true
-      }})
+      }
+    })
   }
+
 
   getUserMessages($key) {
     return this.af.database.list('/messages')
   }
 
+  getNewUserMsg() {
+    return this.newMessagesUser;
+  }
+
+  getNewFirmMsg() {
+    return this.newMessagesFirm;
+  }
 }

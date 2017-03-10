@@ -92,6 +92,10 @@ import {Search} from '../search/search';
         .item-ios p {
           font-size: 1.3rem !important;
         }
+        
+        .item-md {
+          margin-top: -1% !important;
+        }
     `]
 })
 export class HomePage {

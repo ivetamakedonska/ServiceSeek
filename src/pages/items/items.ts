@@ -91,6 +91,12 @@ declare const firebase;
        display: inline-table;
        margin-top: 2%;
     }
+     .edit {
+       width: 49%;
+       display: inline-table;
+       margin-top: 2%;
+       margin-left: 27%;
+    }
     
     .likes-comments-icons {
       margin-right: 3%;
@@ -192,7 +198,6 @@ export class Items {
   }
 
   sendMessage(item) {
-    console.log(item)
     let data;
     let ref = this.af.database.list('/messages');
     let uid = this.user.uid;
@@ -202,30 +207,7 @@ export class Items {
         equalTo: uid
       }})
       .subscribe((messages) => {
-        console.log(messages)
-       // if(messages[0].messages != '') {
-       //   if (messages[0].businessId == item.userId) {
-       //
-       //   }
-       // } else {
-       //   ref.push({
-       //     businessId: item.userId,
-       //     firmImg: item.img,
-       //     firmName: item.name,
-       //     messages: [],
-       //     userId: this.user.uid,
-       //     userImg: this.user.photo,
-       //     userName: this.user.name
-       //   });
-       //   let data =
-       //   {
-       //     chat: messages[1]
-       //   };
-       //   this.nav.push(FullChat, data)
-
-       // }
       let index = -1;
-        console.log(item.userId)
       for(let i=0; i<messages.length; i++) {
         if(messages[i].businessId == item.$key) {
           index = i;
@@ -251,7 +233,11 @@ export class Items {
           messages: {},
           userId: this.user.uid,
           userImg: this.user.photo,
-          userName: this.user.name
+          userName: this.user.name,
+          seenByUser: true,
+          seenByFirm: true,
+          answeredByFirm: false,
+          answeredByUser: false
         }
         ref.push(
           info

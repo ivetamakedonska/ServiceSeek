@@ -1,18 +1,27 @@
 export class MessageModel {
   $key:string;
   message: string;
-  date: string;
+  month: string;
+  time: string;
   isBusinessClient: string;
+  day: string;
+
   constructor({
     $key,
     message,
-    date,
-    isBusinessClient
+    month,
+    day,
+    isBusinessClient,
+    time,
+
   })
   {
     this.$key = $key;
     this.message = message;
     this.isBusinessClient = isBusinessClient;
-    this.date = date;
+    this.day = day;
+    this.month = month;
+    this.time = time;
+
   }
 }

@@ -51,7 +51,7 @@
         <img
           *ngIf="item.img == null"
           class="item-img"
-          [src="assets/img/firm/noImage.png"
+          src="assets/img/firm/noImage.png"
         />
 
         <p class="item-info"><b>
@@ -103,7 +103,7 @@
         <img
           *ngIf="item.img == null"
           class="item-img"
-          [src="assets/img/firm/noImage.png"
+          src="assets/img/firm/noImage.png"
         />
 
         <p class="item-info"><b>
@@ -127,7 +127,7 @@
                 #btn
                 class="likes"
                 name="thumbs-up"
-                clear large ion-button
+                clear large ion-xfbutton
                 (click)="onLikeClick(btn,subData.color, like, item, $event)"
                 [style.color]="!likeClicked && item.$key == clickedKey?subData.color:''"
 

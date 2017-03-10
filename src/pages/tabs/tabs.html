@@ -1,14 +1,31 @@
 <ion-tabs>
   <ion-tab [root]="tab1Root" tabTitle="Главно меню" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Настройки" tabIcon="settings"></ion-tab>
-  <ion-tab [root]="tab5Root" tabTitle="Съобщения" tabIcon="chatboxes"></ion-tab>
+  <ion-tab
+          *ngIf="_user.getUser().bussinessClient"
+          [root]="tab5Root"
+          tabTitle="Съобщения"
+          tabIcon="chatboxes"
+          [tabBadge]="_chat.getNewFirmMsg()"
+  >
+
+  </ion-tab>
+    <ion-tab
+          *ngIf="!_user.getUser().bussinessClient"
+          [root]="tab5Root"
+          tabTitle="Съобщения"
+          tabIcon="chatboxes"
+          [tabBadge]="_chat.getNewUserMsg()"
+  >
+
+  </ion-tab>
 
   <ion-tab
           *ngIf="!(_user.getUser().bussinessClient)"
           [root]="tab3Root"
           tabTitle="Заявки"
           tabIcon="filing"
-          [tabBadge] = "_messages.getNewAnswers()"
+          [tabBadge] = "_requests.getNewAnswers()"
   >
 
   </ion-tab>
@@ -17,7 +34,7 @@
           [root]="tab4Root"
           tabTitle="Запитвания"
           tabIcon="filing"
-          [tabBadge] = "_messages.getNewRequests()"
+          [tabBadge] = "_requests.getNewRequests()"
 
   >
 

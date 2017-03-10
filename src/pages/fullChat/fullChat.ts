@@ -24,12 +24,12 @@ import {MessageModel} from "../../models/messageModel";
   templateUrl: 'fullChat.html',
   selector: 'full-chat',
   styles: [`
-    .avatar {
-        border-radius: 1rem;
-        border: 1px solid #dedede;
-        max-width: 3.5rem;
-        max-height: 5.5rem;
-     }
+    /*.avatar {*/
+        /*border-radius: 1rem;*/
+        /*border: 1px solid #dedede;*/
+        /*max-width: 3.5rem;*/
+        /*max-height: 5.5rem;*/
+     /*}*/
      
      ion-input .text-input {
         width: 78%;
@@ -51,6 +51,12 @@ import {MessageModel} from "../../models/messageModel";
      .other-message {
         color: black;
         background-color: #f1f1f1;
+        float: left;
+     }
+     
+     .item-md p {
+        padding: 1.8% !important;
+        border-radius: 11% !important;
      }
      
      .list-ios .item-block .item-inner {
@@ -61,13 +67,13 @@ import {MessageModel} from "../../models/messageModel";
         border-bottom: 0.55px solid white !important;
       }
      
-     .my-date {
+     .my-time {
         font-size: 3vw !important;
-        margin-left: 63%;
         margin-top: 1%;
+        float: right;
      }
      
-     .other-date {
+     .other-time {
         font-size: 3vw !important;
         margin-bottom: 1%;
      }
@@ -76,58 +82,24 @@ import {MessageModel} from "../../models/messageModel";
         margin-bottom: 2%;
      }
     
-     .delete-more {
-        color:red;
-        border-color: red;
-        height: 36px !important;
-     }
-     
-     .delete {
-        width: 49%;
-        display: inline;    
-        color: red;
-        border-color: red;
-        height: 36px !important;
-
-     }
-   
-     .stop {
-       width: 49%;
-       display: inline;
-       height: 36px !important;
-
-     }
-     
-     .check-box {
-        /*margin-left: 90% !important;*/
-        display: inline!important;
-    }
-    
-    
-    .searchbar-ios {
-      background: transparent !important;
-    }
-    
-    .searchbar-md {
-      background: transparent !important;
-    }
-    .toolbar-ios {}
-    
-    .not-seen {
-      background: #f1f1f1;
-    }
-    
     .send {
         margin: 0;
         padding-bottom: 0;
         font-size: 1.45rem;
      }
-  
+     
      .comment-input {
         width: 63%;
         display: inline;
      }
-     
+ 
+     .new-date {
+       font-size: 1.3rem !important;
+       display: block !important;
+       text-align: center !important;
+     }
+ 
+ 
      .toolbar-content-ios {
         display: flex;   
      }
@@ -161,6 +133,14 @@ import {MessageModel} from "../../models/messageModel";
     .item-md .item-block .item-inner {
       border-bottom: 0px solid white !important;
      }
+     
+    .button-small-md {
+        font-size: 1.1rem;
+    }
+    
+    .toolbar-title-md {
+        font-size: 1.6rem;
+    }
   `]
 })
 export class FullChat {
@@ -170,6 +150,10 @@ export class FullChat {
   private chat: any;
   private messages: any;
   private keys: Array<any>;
+  private monthNames: Array<any> = ["януари", "февруари", "март", "април", "май", "юни",
+  "юли", "август", "септември", "октомври", "ноември", "декември"];
+  private date:any = new Date();
+  private msgCountToday: number = 0;
 
 
 
@@ -186,7 +170,6 @@ export class FullChat {
     this.chat = this.data.chat;
     this._messages.getChosen(this.data.chat.$key).subscribe( (a) =>
     {
-      console.log(a);
       this.messages = a[0].messages;
       this.keys = this.messages ? Object.keys(this.messages) :[];
 
@@ -198,18 +181,40 @@ export class FullChat {
   }
 
   sendMessage(message) {
-    // console.log(message)
-    if(message.value != '') {
-      let chat = this.af.database.list('/messages/' + this.chat.$key + '/messages');
-      chat.push({
-        date: new Date().getHours() + ':' + new Date().getMinutes(),
-        isBusinessClient: this.user.bussinessClient,
-        message: message.value
-      })
-      message.value = '';
-      // this.messages.push(message);
-      console.log(message);
 
+    if(message.value != '') {
+      if (new Date().getMinutes() <= 9) {
+        let chat = this.af.database.list('/messages/' + this.chat.$key + '/messages');
+        chat.push({
+          day:  new Date().getDate(),
+          month: this.monthNames[new Date().getMonth()],
+          time:  new Date().getHours() + ":0" + new Date().getMinutes(),
+          isBusinessClient: this.user.bussinessClient,
+          message: message.value
+        })
+        message.value = '';
+      } else {
+        let chat = this.af.database.list('/messages/' + this.chat.$key + '/messages');
+        chat.push({
+          day:  new Date().getDate(),
+          month: this.monthNames[new Date().getMonth()],
+          time:  new Date().getHours() + ":" + new Date().getMinutes(),
+          isBusinessClient: this.user.bussinessClient,
+          message: message.value
+        })
+        message.value = '';
+      }
+      if(this.user.bussinessClient) {
+        let conversation = this.af.database.list('/messages');
+        conversation.update(this.chat.$key, {
+          seenByUser: false
+        });
+      } else {
+        let conversation = this.af.database.list('/messages');
+        conversation.update(this.chat.$key, {
+          seenByFirm: false
+        });
+      }
     }
   }
 

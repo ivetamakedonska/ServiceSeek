@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <!--Чат- {{chat.firmName}}-->
+      Чат - {{chat.firmName}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,18 +14,22 @@
       *ngFor="let key of keys"
 
     >
-      <ion-avatar
-        item-left>
-        <img *ngIf="key>=1 && messages[key].isBusinessClient && chat.firmImg != null && !messages[key-1].isBusinessClient"
-             class="avatar"
-             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.firmImg)">
-        <img *ngIf="messages[key].isBusinessClient && chat.firmImg != null && key == 0"
-             class="avatar"
-             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.firmImg)">
-        <img *ngIf="chat.firmImg == null" class="avatar" src="assets/img/firm/noImage.png">
-      </ion-avatar>
+      <p class="new-date" *ngIf="date.getDate() != messages[key].day || monthNames[date.getMonth()] != messages[key].month ">
+        {{messages[key].day}} {{messages[key].month}}, {{messages[key].time}}
+      </p>
 
-      <p class="my-date" *ngIf="!messages[key].isBusinessClient"> {{messages[key].date}}</p>
+      <!--<ion-avatar-->
+        <!--item-left>-->
+        <!--<img *ngIf="key>=1 && messages[key].isBusinessClient && chat.firmImg != null && !messages[key-1].isBusinessClient"-->
+             <!--class="avatar"-->
+             <!--[src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.firmImg)">-->
+        <!--<img *ngIf="messages[key].isBusinessClient && chat.firmImg != null && key == 0"-->
+             <!--class="avatar"-->
+             <!--[src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.firmImg)">-->
+        <!--<img *ngIf="chat.firmImg == null" class="avatar" src="assets/img/firm/noImage.png">-->
+      <!--</ion-avatar>-->
+
+      <p class="my-time" *ngIf="!messages[key].isBusinessClient"> {{messages[key].time}}</p>
       <p class="my-message"
          *ngIf="!messages[key].isBusinessClient"
       >
@@ -37,7 +41,7 @@
       >
         {{messages[key].message}}
       </p>
-      <p class="other-date" *ngIf="messages[key].isBusinessClient"> {{messages[key].date}}</p>
+      <p class="other-time" *ngIf="messages[key].isBusinessClient"> {{messages[key].time}}</p>
 
 
     </ion-item>
@@ -50,19 +54,22 @@
       *ngFor="let key of keys"
 
     >
-      <ion-avatar
-        item-left>
-        <img *ngIf="!messages[key].isBusinessClient && chat.userImg != null && key == 0 "
-             class="avatar"
-             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">
-        <img *ngIf="key>=1 && !messages[key].isBusinessClient && chat.userImg != null && messages[key-1].isBusinessClient "
-             class="avatar"
-             [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">
-        <!--<img *ngIf="!message.isBusinessClient && chat.userImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">-->
-        <img *ngIf="chat.userImg == null" class="avatar" src="assets/img/firm/noImage.png">
-      </ion-avatar>
+      <p class="new-date" *ngIf="date.getDate() != messages[key].day || monthNames[date.getMonth()] != messages[key].month">
+        {{messages[key].day}} {{messages[key].month}}, {{messages[key].time}}
+      </p>
+      <!--<ion-avatar-->
+        <!--item-left>-->
+        <!--<img *ngIf="!messages[key].isBusinessClient && chat.userImg != null && key == 0 "-->
+             <!--class="avatar"-->
+             <!--[src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">-->
+        <!--<img *ngIf="key>=1 && !messages[key].isBusinessClient && chat.userImg != null && messages[key-1].isBusinessClient "-->
+             <!--class="avatar"-->
+             <!--[src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">-->
+        <!--&lt;!&ndash;<img *ngIf="!message.isBusinessClient && chat.userImg != null" class="avatar" [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + chat.userImg)">&ndash;&gt;-->
+        <!--<img *ngIf="chat.userImg == null" class="avatar" src="assets/img/firm/noImage.png">-->
+      <!--</ion-avatar>-->
 
-      <p class="my-date" *ngIf="messages[key].isBusinessClient"> {{messages[key].date}}</p>
+      <p class="my-time" *ngIf="messages[key].isBusinessClient"> {{messages[key].time}}</p>
       <p class="my-message"
          *ngIf="messages[key].isBusinessClient"
       >
@@ -74,7 +81,7 @@
       >
         {{messages[key].message}}
       </p>
-      <p class="other-date" *ngIf="!messages[key].isBusinessClient"> {{messages[key].date}}</p>
+      <p class="other-time" *ngIf="!messages[key].isBusinessClient"> {{messages[key].time}}</p>
 
 
     </ion-item>

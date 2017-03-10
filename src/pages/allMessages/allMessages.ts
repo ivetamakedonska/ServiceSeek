@@ -44,41 +44,10 @@ import {MessageModel} from "../../models/messageModel";
      .name {
         margin-bottom: 2%;
      }
-    
-     .delete-more {
-        color:red;
-        border-color: red;
-        height: 36px !important;
-     }
      
-     .delete {
-        width: 49%;
-        display: inline;    
-        color: red;
-        border-color: red;
-        height: 36px !important;
-
-     }
-   
-     .stop {
-       width: 49%;
-       display: inline;
-       height: 36px !important;
-
-     }
      
-     .check-box {
-        /*margin-left: 90% !important;*/
-        display: inline!important;
-    }
-    
-    
-    .searchbar-ios {
-      background: transparent !important;
-    }
-    
-    .searchbar-md {
-      background: transparent !important;
+     .not-seen {
+      background: #f1f1f1;
     }
     .toolbar-ios {}
     
@@ -92,8 +61,10 @@ import {MessageModel} from "../../models/messageModel";
 export class AllMessages {
   private userMessages: Array<ConversationModel>;
   private businessMessages: Array<ConversationModel>;
-  private message: MessageModel;
+  private messages:  Array<any> = [];
+  private allMessages: Array<any> = [];
   private user: UserModel;
+  private convCount: number = 0;
 
   constructor(public nav: NavController,
               private _messages: MessagesService,
@@ -108,11 +79,32 @@ export class AllMessages {
         this.userMessages = a.map((e) => {
           return new ConversationModel(e);
         })
-        // console.log(this.userMessages[0].messages[Object.keys(this.userMessages[0].messages)[Object.keys(this.userMessages[0].messages).length - 1]]);
+
+        this.userMessages.forEach(chat => {
+          if(chat.messages != null) {
+            this.allMessages.push(chat);
+          }
+        })
+
+        this.userMessages.forEach(chat => {
+          this.allMessages.forEach(conv => {
+            if(conv == chat ) {
+              this.convCount++;
+            }
+          })
+        })
+      })
+    console.log(this.convCount);
+    this._messages.getUserMessages(this.user.uid).subscribe( (a) =>
+    {
+      this.userMessages.forEach(chat => {
+        if(this.convCount <= this.userMessages.length) {
+          this.messages.push(chat);
+        }
 
       })
 
-
+    })
 
   }
 
@@ -121,6 +113,18 @@ export class AllMessages {
       chat: chat
     }
     this.nav.push(FullChat, data);
+    if(this.user.bussinessClient) {
+      let conversation = this.af.database.list('/messages');
+      conversation.update(chat.$key, {
+        seenByFirm: true
+      });
+    } else {
+      let conversation = this.af.database.list('/messages');
+      conversation.update(chat.$key, {
+        seenByUser: true
+      });
+    }
+
   }
 
 
