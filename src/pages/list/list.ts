@@ -81,6 +81,7 @@ import {DomSanitizer} from '@angular/platform-browser';
         padding: 0;
         position: absolute;
         margin-top: -9%;
+        margin-left: 11%;
     }
     
     .likes-icon {
@@ -90,7 +91,7 @@ import {DomSanitizer} from '@angular/platform-browser';
     .count-likes {
       font-size: 3vw;
       margin-top: 13vw;
-      margin-left: 20vw;
+      margin-left: 12vw;
       color: #dedede;
     }
    

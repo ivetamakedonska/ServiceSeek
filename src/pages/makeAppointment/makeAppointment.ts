@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, DateTime} from 'ionic-angular';
 import {AlertController} from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
@@ -39,6 +39,11 @@ export class MakeAppointment {
   private selectedServices: any = null;
   private workingHours: Array<any> = [];
   private workingMinutes: Array<any> = [];
+  private month: string;
+  private newDate: Date;
+  private day: string;
+  private workTimeWeekdayStart: any;
+  private workTimeWeekdayEnd: any;
 
   constructor(params:NavParams,
               public nav:NavController,
@@ -50,11 +55,37 @@ export class MakeAppointment {
     this.item = params.data.item;
     this.user = this._user.getUser();
     this.checked = false;
+    this.newDate = new Date();
+
+    if(this.newDate.getMonth() < 10) {
+      let thisMonth = new Date().getMonth()+1;
+
+      this.month = '0' + thisMonth.toString();
+    } else {
+      let thisMonth = new Date().getMonth()+1;
+      this.month = thisMonth.toString()
+
+    }
+
+    if(this.newDate.getDate() < 10) {
+      let thisDate = new Date().getDate();
+
+      this.day = '0' + thisDate.toString();
+    } else {
+      let thisDate = new Date().getDate();
+      this.day = thisDate.toString()
+
+    }
+
+    this.workTimeWeekdayStart = this.item.workTimeWeekdayStart;
+    this.workTimeWeekdayEnd = this.item.workTimeWeekdayEnd;
   }
 
 
+
   public event = {
-    month: '2017-01-14',
+    // month:'2017-'+this.month+'-'+this.day,
+    month: '2017-04-01',
     timeStarts: '12:00'
   }
 
@@ -129,16 +160,16 @@ export class MakeAppointment {
   }
 
   test(){
-    let start = Number(this.item.workTimeWeekdayStart.split(':')[0]);
-    let end = Number(this.item.workTimeWeekdayEnd.split(':')[0]);
+    let start = Number(this.workTimeWeekdayStart.split(':')[0]);
+    let end = Number(this.workTimeWeekdayEnd.split(':')[0]);
     let appointement = this.event.timeStarts.split(':');
     for(let i = start; i<=end-1; i++) {
       this.workingHours.push(i);
     }
-    if(Number(appointement[0]) >= start && Number(appointement[1]) >= 0 &&  Number(appointement[0]) <= end-1 &&  Number(appointement[1]) < 60) {
-      return true;
-    }
-    return false;
+    // if(Number(appointement[0]) >= start && Number(appointement[1]) >= 0 &&  Number(appointement[0]) <= end-1 &&  Number(appointement[1]) < 60) {
+    //   return true;
+    // }
+    // return false;
   }
 }
 

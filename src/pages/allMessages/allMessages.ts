@@ -94,7 +94,6 @@ export class AllMessages {
           })
         })
       })
-    console.log(this.convCount);
     this._messages.getUserMessages(this.user.uid).subscribe( (a) =>
     {
       this.userMessages.forEach(chat => {

@@ -85,7 +85,7 @@ import {MessageModel} from "../../models/messageModel";
     .send {
         margin: 0;
         padding-bottom: 0;
-        font-size: 1.45rem;
+        font-size: 1.3rem;
      }
      
      .comment-input {
@@ -135,7 +135,7 @@ import {MessageModel} from "../../models/messageModel";
      }
      
     .button-small-md {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     
     .toolbar-title-md {

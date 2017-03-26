@@ -14,7 +14,14 @@
     <ion-item>
       <ion-label>Услуга</ion-label>
       <ion-select [(ngModel)]="services" (ionChange)="check($event)" okText="Избери" cancelText="Затвори" >
-        <ion-option *ngFor="let service of item.services; let i = index" [value]="i" value="{{service.service}}">{{service.service}}</ion-option>
+        <ion-option
+                *ngFor="let service of item.services; let i = index"
+                [value]="i"
+                value="{{service.service}}"
+                (click)="test()"
+        >
+          {{service.service}}
+        </ion-option>
 
       </ion-select>
     </ion-item>
@@ -36,6 +43,7 @@
         [(ngModel)]="event.month"
         min="2017-01-01"
         max="2017-31-12"
+        (click)="test()"
       >
 
       </ion-datetime>

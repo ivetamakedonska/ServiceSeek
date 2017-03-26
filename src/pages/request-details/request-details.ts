@@ -70,12 +70,12 @@ import {RequestModel} from '../../models/requestModel';
         height: 2.6em;
         font-size: 4.3vw;
         width: 49%;
-        display: inline;
+        display: inline-table;
     }
     
     .decline2 {
        width: 49%;
-       display: inline;
+       display: inline-table;
        font-size: 4.3vw;
        height: 2.6em;
 
@@ -83,7 +83,7 @@ import {RequestModel} from '../../models/requestModel';
     
     .accept2 {
       width: 49%;
-      display: inline;   
+      display: inline-table;   
       font-size: 4.3vw;
       height: 2.6em;
 

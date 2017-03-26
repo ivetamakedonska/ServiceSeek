@@ -153,11 +153,13 @@ export class Items {
 
   onLikeClick(btn, thisColor, item) {
     this.likeClicked = !this.likeClicked;
-    let itemsRef = firebase.database().ref("items/" + item.$key);
-    let likesRef = itemsRef.child('likes');
+    let itemsRef = this.af.database.list('/items/' + item.$key);
+    let likesRef = this.af.database.list('/items/' + item.$key + '/likes');
     if(item.isLiked(this.user.uid)) {
       let likeKey = item.getLikeKey(this.user.uid);
-      itemsRef.child('likes/' + likeKey).remove();
+      let likeRef = this.af.database.list('/items/' + item.$key + '/likes/' + likeKey);
+
+      likeRef.remove();
 
     } else {
       btn._elementRef.nativeElement.style.color = thisColor;
