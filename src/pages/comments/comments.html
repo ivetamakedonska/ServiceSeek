@@ -22,7 +22,7 @@
           <img
             *ngIf="user.photo == null"
             class="avatar"
-            [src="assets/img/firm/noImage.png"
+            src="assets/img/firm/noImage.png"
           />
         </ion-avatar>
         <p class="name"><b>{{comment.name}}</b></p>
@@ -42,10 +42,18 @@
     >
 
 
-            <ion-avatar
-                    item-left>
-              <img class="avatar" src="assets/img/users/{{comment.img}}">
-            </ion-avatar>
+        <ion-avatar>
+            <img
+                    *ngIf="comment.img != null"
+                    class="avatar"
+                    [src]="_DomSanitizationService.bypassSecurityTrustUrl('data:image/jpeg;base64,' + comment.img)"
+            />
+            <img
+                    *ngIf="comment.img == null"
+                    class="avatar"
+                    src="assets/img/firm/noImage.png"
+            />
+        </ion-avatar>
 
             <p class="name"><b>{{comment.name}}</b></p>
             <p class="comment"> {{comment.comment}}</p>

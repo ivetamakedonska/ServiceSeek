@@ -68,6 +68,8 @@ import {DomSanitizer} from '@angular/platform-browser';
       }
        .likes-2 {
         margin-top: 3vw;
+        margin-left: -1%;
+        font-size: 1.2rem;
       }
       .comments-icon{
         margin-right: 5%;

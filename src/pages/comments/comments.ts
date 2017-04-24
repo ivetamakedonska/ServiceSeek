@@ -57,7 +57,7 @@ import {UserModel} from '../../models/userModel';
      
      .delete {
         float: right;
-        margin-top: -9%;
+        margin-top: -4%;
         font-size: 8vw;
      }
      
