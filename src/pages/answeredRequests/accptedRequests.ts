@@ -22,42 +22,42 @@ import {MessageDetails} from '../request-details/request-details';
      .item-ios p {
           font-size: 3.8vw;
      }
-     
+
      .avatar {
         border-radius: 1rem;
         border: 1px solid #dedede;
         max-width: 6rem;
         max-height: 6rem;
       }
-  
+
       .delete-more {
           color:red;
           border-color: red;
           height: 36px !important;
       }
-     
+
        .delete {
           width: 49%;
-          display: inline-table;    
+          display: inline-table;
           color: red;
           border-color: red;
           height: 36px !important;
        }
-   
+
        .stop {
          width: 49%;
          display: inline-table;
          height: 36px !important;
        }
-    
+
       .searchbar-md {
          background: transparent !important;
-      } 
-      
+      }
+
       .searchbar-ios {
          background: transparent !important;
       }
-      
+
       .time {
         font-size: 1.5rem;
       }

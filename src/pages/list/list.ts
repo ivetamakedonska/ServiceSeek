@@ -74,7 +74,7 @@ import {DomSanitizer} from '@angular/platform-browser';
       .comments-icon{
         margin-right: 5%;
       }
-      
+
       .likes {
         font-size: 10vw;
         color: #dedede;
@@ -85,7 +85,7 @@ import {DomSanitizer} from '@angular/platform-browser';
         margin-top: -9%;
         margin-left: 17%;
     }
-    
+
     .likes-icon {
       margin-left: 10vw;
     }
@@ -96,19 +96,19 @@ import {DomSanitizer} from '@angular/platform-browser';
       margin-left: 20vw;
       color: #dedede;
     }
-   
+
     .button-clear-ios  {
         margin-left: 18% !important;
     }
-    
+
     .button-clear-md  {
         margin-left: 18% !important;
     }
-    
+
    .button-outline-ios.activated {
        background-color: transparent !important;
    }
-   
+
   `]
 })
 export class List {
@@ -140,6 +140,7 @@ export class List {
     })
 
     this.user = this._user.getUser();
+    console.log(this.items)
   }
 
   openNavDetailsPage(item, color)
@@ -203,4 +204,3 @@ export class List {
     this.nav.push(RegisterFirm, data);
   }
 }
-

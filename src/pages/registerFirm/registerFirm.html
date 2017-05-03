@@ -123,11 +123,17 @@
           </ion-item>
           <ion-item class="duration">
             <ion-input
-              [(ngModel)]="service.duration" [ngModelOptions]="{standalone: true}"
               placeholder="Времетраене"
             >
 
             </ion-input>
+
+            <ion-datetime #time displayFormat="HH:mm" pickerFormat="HH:mm"
+            [(ngModel)]="service.duration" [ngModelOptions]="{standalone: true}"
+
+            >
+
+            </ion-datetime>
           </ion-item>
         </ion-list>
         <button

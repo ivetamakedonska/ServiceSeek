@@ -7,6 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {MessageDetails} from '../request-details/request-details';
 import {AcceptedRequests} from '../answeredRequests/accptedRequests';
 import {DeclinedRequests} from '../answeredRequests/declinedRequest';
+import {MakeAppointment} from '../makeAppointment/makeAppointment';
 
 //Services
 import {UserService} from '../../services/userService';
@@ -47,7 +48,7 @@ import {UserModel} from '../../models/userModel';
         font-size: 3.5vw;
         color: #999;
      }
-        
+
      .accepted {
         background-color: #32CD32;
         width: 50%;
@@ -55,7 +56,7 @@ import {UserModel} from '../../models/userModel';
         margin: 0;
         margin-right: -1%;
      }
-    
+
      .declined {
         background-color: red;
         width: 50%;
@@ -63,38 +64,38 @@ import {UserModel} from '../../models/userModel';
         margin: 0;
         margin-right: -1%;
      }
-    
+
     .item-ios p {
         font-size: 3.8vw;
     }
-    
+
      .delete-more {
         color:red;
         border-color: red;
         height: 36px !important;
      }
-     
+
      .delete {
         width: 49%;
-        display: inline-table;    
+        display: inline-table;
         color: red;
         border-color: red;
         height: 36px !important;
 
      }
-   
+
      .stop {
        width: 49%;
        display: inline-table;
        height: 36px !important;
 
      }
-     
+
      .check-box {
         /*margin-left: 90% !important;*/
         display: inline!important;
     }
-    
+
     .accept {
        width: 33%;
        display: inline-table;
@@ -102,7 +103,7 @@ import {UserModel} from '../../models/userModel';
        border-color: #32CD32;
        height: 36px !important;
     }
-    
+
     .decline {
        width: 32%;
        display: inline-table;
@@ -110,26 +111,26 @@ import {UserModel} from '../../models/userModel';
        border-color: red;
        height: 36px !important;
     }
-    
+
     .close {
        width: 32%;
        display: inline-table;
        height: 36px !important;
     }
-    
+
     .close-icon {
       font-size: 2.5em;
     }
-    
+
     .searchbar-ios {
       background: transparent !important;
     }
-    
+
     .searchbar-md {
       background: transparent !important;
     }
     .toolbar-ios {}
-    
+
     .not-seen {
       background: #f1f1f1;
     }
@@ -160,6 +161,8 @@ export class ContactPage {
           return new RequestModel(e);
         })
       })
+      console.log(this.messages)
+
     } else {
 
       this._messages.getBusinessRequests(this.user.uid).subscribe( (a) =>
@@ -173,6 +176,7 @@ export class ContactPage {
       })
 
     }
+
 
     this.chosenRequests = [];
 

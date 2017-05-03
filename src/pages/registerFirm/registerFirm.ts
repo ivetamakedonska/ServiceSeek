@@ -75,11 +75,11 @@ import {ItemModel} from '../../models/itemModel';
      .more-services {
       margin: -1px 0 0px 0 !important;
      }
-     
+
      .days {
       color: grey;
      }
-     
+
      .label-md {
     margin: 12px 8px 3px 0 !important;
     }
@@ -156,6 +156,11 @@ export class RegisterFirm {
       }
     }
 
+      public event = {
+        // month:'2017-'+this.month+'-'+this.day,
+        timeStarts: '1:00'
+      }
+
     save() {
         let name = this.firm.controls['name'].value;
         let city = this.firm.controls['city'].value;
@@ -191,7 +196,7 @@ export class RegisterFirm {
         services: this.services
 
       })
-
+      console.log(this.services)
         this.nav.push(HomePage);
     }
 

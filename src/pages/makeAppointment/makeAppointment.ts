@@ -2,10 +2,16 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, DateTime} from 'ionic-angular';
 import {AlertController} from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent
+} from 'angular-calendar';
 
 //Models
 import {ItemModel} from '../../models/itemModel';
 import {UserModel} from '../../models/userModel';
+import {RequestModel} from '../../models/requestModel'
 
 //Services
 import {UserService} from '../../services/userService';
@@ -44,18 +50,26 @@ export class MakeAppointment {
   private day: string;
   private workTimeWeekdayStart: any;
   private workTimeWeekdayEnd: any;
+  private acceptedData: any;
+  private viewDate: Date = new Date();
+
+
 
   constructor(params:NavParams,
               public nav:NavController,
               public alerCtrl:AlertController,
               private af:AngularFire,
               private _user:UserService,
-              private _requests: RequestsService) {
+              private _requests: RequestsService,
+              private _messages: RequestsService,
+) {
     this.data = params.data;
     this.item = params.data.item;
     this.user = this._user.getUser();
     this.checked = false;
     this.newDate = new Date();
+
+
 
     if(this.newDate.getMonth() < 10) {
       let thisMonth = new Date().getMonth()+1;
@@ -79,6 +93,8 @@ export class MakeAppointment {
 
     this.workTimeWeekdayStart = this.item.workTimeWeekdayStart;
     this.workTimeWeekdayEnd = this.item.workTimeWeekdayEnd;
+    this.test();
+
   }
 
 
@@ -127,6 +143,7 @@ export class MakeAppointment {
         "юли", "август", "септември", "октомври", "ноември", "декември"];
 
       let requests = this.af.database.list('/requests');
+      if(this.item.img != null) {
       requests.push({
         firmName: this.item.name,
         firmImg: this.item.img,
@@ -149,6 +166,30 @@ export class MakeAppointment {
         duration: this.selectedServices.duration,
         price: this.selectedServices.price
       })
+    } else {
+      requests.push({
+        firmName: this.item.name,
+        firmImg: "",
+        service: this.selectedServices.service,
+        date: date._text,
+        time: time._text,
+        moreInfo: more.value,
+        iconName: "time",
+        condition: "Чакащ",
+        color: "#4db8ff",
+        askedTime: "изпратено на " + new Date().getDate() + " " + monthNames[new Date().getMonth()]
+        + ' в ' + new Date().getHours() + ":" + new Date().getMinutes(),
+        userName: this.user.name,
+        userImg: this.user.photo,
+        userId: this.user.uid,
+        businessId: this.item.userId,
+        opened: false,
+        answered: false,
+        openedByUser: false,
+        duration: this.selectedServices.duration,
+        price: this.selectedServices.price
+      })
+    }
   }
 
   check(index) {
@@ -160,16 +201,45 @@ export class MakeAppointment {
   }
 
   test(){
+    this._messages.getBusinessRequests(this.item.userId).subscribe( (a) =>
+    {
+      let requests = [];
+      a.forEach(request => {
+        if(request.condition == "Приет") {
+          requests.push(request);
+        }
+      })
+
+
     let start = Number(this.workTimeWeekdayStart.split(':')[0]);
     let end = Number(this.workTimeWeekdayEnd.split(':')[0]);
     let appointement = this.event.timeStarts.split(':');
+    this.workingHours = [];
     for(let i = start; i<=end-1; i++) {
-      this.workingHours.push(i);
+      this.workingHours.push(i.toString());
     }
+    requests.forEach(r => {
+      if(r.duration.split(':')[1] == '00' && r.time.split(':')[1] == '00'){
+        let duration = Number(r.duration.split(':')[0]);
+        let beggining = Number(r.time.split(':')[0]);
+        let removedTime = beggining + duration;
+        this.workingHours.splice(this.workingHours.indexOf(removedTime.toString()), 1);
+      }
+
+        if(r.duration.split(':')[1] == '00' && r.time.split(':')[1] != '00'){
+
+        }
+    })
+
     // if(Number(appointement[0]) >= start && Number(appointement[1]) >= 0 &&  Number(appointement[0]) <= end-1 &&  Number(appointement[1]) < 60) {
     //   return true;
     // }
     // return false;
+    })
+  }
+
+  dayClicked({date, events}: {date: Date, events: CalendarEvent[]}): void {
+
+      console.log(date)
   }
 }
-

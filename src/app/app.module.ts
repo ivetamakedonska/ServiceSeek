@@ -1,6 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { CalendarModule } from 'angular-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+
+
 
 
 //Components
@@ -28,6 +37,7 @@ import {RegisterFirm} from '../pages/registerFirm/registerFirm';
 import {EditFirm} from '../pages/editFirm/editFirm';
 import {AllMessages} from '../pages/allMessages/allMessages';
 import {FullChat} from '../pages/fullChat/fullChat';
+import {CalendarMonthViewComponent} from '../pages/calendar-month/calendar.ts'
 
 //Pipes
 import {AcceptedPipes, BussinessItems, DeclinedPipes, WaitingPipes} from '../pipes/acceptedPipe';
@@ -90,13 +100,20 @@ const myFirebaseAuthConfig = {
     RegisterFirm,
     EditFirm,
     AllMessages,
-    FullChat
+    FullChat,
+    CalendarMonthViewComponent
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
+    // NgbModalModule.forRoot(),
     IonicModule.forRoot(MyApp),
     ReactiveFormsModule,
     FormsModule,
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot()
+
 
   ],
   bootstrap: [IonicApp],
@@ -124,7 +141,8 @@ const myFirebaseAuthConfig = {
     RegisterFirm,
     EditFirm,
     AllMessages,
-    FullChat
+    FullChat,
+    CalendarMonthViewComponent
   ],
   providers: [
     CategoryService,

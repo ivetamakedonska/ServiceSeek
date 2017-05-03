@@ -54,6 +54,7 @@
       <ion-label>Час</ion-label>
       <ion-datetime #time displayFormat="HH:mm" pickerFormat="HH:mm"
                     [(ngModel)]="event.timeStarts"
+                    [hourValues]="workingHours"
 
       >
 
@@ -72,6 +73,10 @@
     Запази час
   </button>
 
+  <mwl-calendar-month-view
+    [viewDate]="viewDate"
+    (dayClicked)="dayClicked($event.day)">
+
+  </mwl-calendar-month-view>
+
 </ion-content>
-
-
