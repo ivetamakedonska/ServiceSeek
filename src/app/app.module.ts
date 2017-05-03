@@ -5,7 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Camera } from '@ionic-native/camera';
+
 
 
 
@@ -106,7 +108,6 @@ const myFirebaseAuthConfig = {
   imports: [
     BrowserModule,
     HttpModule,
-    // NgbModalModule.forRoot(),
     IonicModule.forRoot(MyApp),
     ReactiveFormsModule,
     FormsModule,
@@ -154,7 +155,9 @@ const myFirebaseAuthConfig = {
     ListService,
     LikesService,
     CommentService,
-    MessagesService
+    MessagesService,
+    StatusBar,
+    Camera
   ]
 })
 export class AppModule {}

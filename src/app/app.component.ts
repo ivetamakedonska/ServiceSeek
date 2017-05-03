@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
 import {AuthenticationPage} from '../pages/authentication/authentication';
 import { AuthService } from '../services/authService';
 
@@ -19,13 +19,13 @@ declare const firebase: any;
 export class MyApp {
   rootPage:any = AuthenticationPage;
 
-  constructor(platform: Platform, _auth: AuthService, private af: AngularFire, private _user: UserService,public auth$: AngularFireAuth) {
+  constructor(platform: Platform, _auth: AuthService, private af: AngularFire, private _user: UserService,public auth$: AngularFireAuth, public StatusBar: StatusBar) {
 
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      this.StatusBar.styleDefault();
 
       auth$.getAuth();
       auth$.subscribe((state: FirebaseAuthState) => {

@@ -3,7 +3,7 @@ import {NavController, NavParams, ActionSheetController, ToastController} from '
 import {UserService} from '../../services/userService';
 import { AngularFire } from 'angularfire2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Camera }from 'ionic-native';
+import { Camera }from '@ionic-native/camera';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
@@ -148,7 +148,9 @@ export class RegisterFirm {
                  private af: AngularFire,
                  private actionSheetCtrl: ActionSheetController,
                  public toastCtrl: ToastController,
-                 private _DomSanitizationService: DomSanitizer
+                 private _DomSanitizationService: DomSanitizer,
+                 public Camera:Camera
+
     ) {
         this.data = params.data;
       if(isNaN(this.number)) {
@@ -217,13 +219,13 @@ export class RegisterFirm {
         {
           text: 'Load from Library',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+            this.takePicture(this.Camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
           text: 'Use Camera',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.CAMERA);
+            this.takePicture(this.Camera.PictureSourceType.CAMERA);
           }
         },
         {
@@ -239,17 +241,17 @@ export class RegisterFirm {
 
     var options = {
       quality : 40,
-      destinationType : Camera.DestinationType.DATA_URL,
+      destinationType : this.Camera.DestinationType.DATA_URL,
       sourceType : sourceType,
       allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
+      encodingType: this.Camera.EncodingType.PNG,
       targetWidth: 100,
       targetHeight: 100,
       saveToPhotoAlbum: true
     };
 
 
-    Camera.getPicture(options).then((imageData) => {
+    this.Camera.getPicture(options).then((imageData) => {
       this.lastImage = imageData;
       let item;
       const lastItemAf = this.af.database.list('/items')

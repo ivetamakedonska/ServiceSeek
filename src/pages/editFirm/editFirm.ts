@@ -4,7 +4,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import { ToastController, ActionSheetController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable} from 'angularfire2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Camera }from 'ionic-native';
+import { Camera }from '@ionic-native/camera';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
@@ -63,7 +63,9 @@ export class EditFirm {
                 public toastCtrl: ToastController,
                 private af: AngularFire,
                 private actionSheetCtrl: ActionSheetController,
-                private _DomSanitizationService: DomSanitizer) {
+                private _DomSanitizationService: DomSanitizer,
+                public Camera:Camera
+              ) {
         this.item = params.data.item;
         this.color = params.data.color;
         this.items = this.af.database.list('/items');
@@ -159,13 +161,13 @@ export class EditFirm {
         {
           text: 'Load from Library',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+            this.takePicture(this.Camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
           text: 'Use Camera',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.CAMERA);
+            this.takePicture(this.Camera.PictureSourceType.CAMERA);
           }
         },
         {
@@ -181,17 +183,17 @@ export class EditFirm {
 
     var options = {
       quality : 40,
-      destinationType : Camera.DestinationType.DATA_URL,
+      destinationType : this.Camera.DestinationType.DATA_URL,
       sourceType : sourceType,
       allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
+      encodingType: this.Camera.EncodingType.PNG,
       targetWidth: 100,
       targetHeight: 100,
       saveToPhotoAlbum: true
     };
 
 
-    Camera.getPicture(options).then((imageData) => {
+    this.Camera.getPicture(options).then((imageData) => {
       this.lastImage = imageData;
       const itemsAf = this.af.database.list('/items')
 

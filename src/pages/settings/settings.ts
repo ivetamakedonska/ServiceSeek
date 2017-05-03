@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { NavController,ActionSheetController, ToastController, Platform, LoadingController, Loading,AlertController } from 'ionic-angular';
-import { Camera, File } from 'ionic-native';
+import { Camera }from '@ionic-native/camera';
 import { AngularFire } from 'angularfire2';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -20,7 +20,7 @@ import {ChangePass} from '../changePass/changePass';
 import {AuthenticationPage} from '../authentication/authentication';
 
 declare let cordova: any;
-let FilePath: any = window["IonicNative"].FilePath;
+// let FilePath: any = window["IonicNative"].FilePath;
 
 
 @Component({
@@ -52,11 +52,11 @@ let FilePath: any = window["IonicNative"].FilePath;
      .change-pass-or-sign-out {
         color: #858585;
      }
-     
+
      .item-ios ion-icon[item-left], .item-ios ion-icon[item-right] {
         margin-right: 2%;
     }
-     
+
     .button-ios {
         margin-top: -6%;
     }
@@ -80,7 +80,9 @@ export class AboutPage {
               private af: AngularFire,
               public alertCtrl: AlertController,
               private _DomSanitizationService: DomSanitizer,
-              public auth$: AngularFireAuth
+              public auth$: AngularFireAuth,
+              public Camera:Camera
+
   ) {
     this.user = this._bussinessman.getUser();
     this.authState = auth$.getAuth();
@@ -121,13 +123,13 @@ export class AboutPage {
         {
           text: 'Load from Library',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+            this.takePicture(this.Camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
           text: 'Use Camera',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.CAMERA);
+            this.takePicture(this.Camera.PictureSourceType.CAMERA);
           }
         },
         {
@@ -143,17 +145,17 @@ export class AboutPage {
 
     var options = {
       quality : 40,
-      destinationType : Camera.DestinationType.DATA_URL,
+      destinationType : this.Camera.DestinationType.DATA_URL,
       sourceType : sourceType,
       allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
+      encodingType: this.Camera.EncodingType.PNG,
       targetWidth: 100,
       targetHeight: 100,
       saveToPhotoAlbum: true
     };
 
 
-    Camera.getPicture(options).then((imageData) => {
+    this.Camera.getPicture(options).then((imageData) => {
       this.lastImage = imageData;
       let usersAf = this.af.database.list('/userInfo');
       usersAf.update(this.user.$key, { photo: this.lastImage });
