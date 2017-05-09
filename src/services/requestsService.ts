@@ -81,6 +81,13 @@ export class RequestsService {
       }})
   }
 
+  // getAcceptedRequests() {
+  //   return this.af.database.list('/requests', {
+  //     query: {
+  //       orderByChild: 'condition',
+  //       equalTo: 'Приет'
+  //     }})
+  // }
   getNewRequests() {
     return this.newRequests;
   }

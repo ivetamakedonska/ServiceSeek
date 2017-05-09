@@ -39,8 +39,7 @@ import {RegisterFirm} from '../pages/registerFirm/registerFirm';
 import {EditFirm} from '../pages/editFirm/editFirm';
 import {AllMessages} from '../pages/allMessages/allMessages';
 import {FullChat} from '../pages/fullChat/fullChat';
-import {CalendarMonthViewComponent} from '../pages/calendar-month/calendar.ts'
-
+import {Schedule} from '../pages/schedule/schedule'
 //Pipes
 import {AcceptedPipes, BussinessItems, DeclinedPipes, WaitingPipes} from '../pipes/acceptedPipe';
 
@@ -103,7 +102,7 @@ const myFirebaseAuthConfig = {
     EditFirm,
     AllMessages,
     FullChat,
-    CalendarMonthViewComponent
+    Schedule
   ],
   imports: [
     BrowserModule,
@@ -143,7 +142,7 @@ const myFirebaseAuthConfig = {
     EditFirm,
     AllMessages,
     FullChat,
-    CalendarMonthViewComponent
+    Schedule
   ],
   providers: [
     CategoryService,

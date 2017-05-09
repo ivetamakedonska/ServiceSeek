@@ -39,6 +39,14 @@
   >
 
   </ion-tab>
+  <ion-tab
+          *ngIf="_user.getUser().bussinessClient"
+          [root]="tab6Root"
+          tabTitle="График"
+          tabIcon="filing"
 
+  >
+
+  </ion-tab>
 
 </ion-tabs>

@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { AboutPage } from '../settings/settings';
 import { ContactPage } from '../allRequests/allRequests';
 import { AllMessages } from '../allMessages/allMessages';
+import {Schedule} from '../schedule/schedule';
 
 //Services
 import {UserService} from "../../services/userService";
@@ -23,6 +24,7 @@ export class TabsPage {
   tab3Root: any = ContactPage;
   tab4Root: any = ContactPage;
   tab5Root: any = AllMessages;
+  tab6Root: any = Schedule;
 
   constructor(private _user : UserService,
               private _requests: RequestsService,

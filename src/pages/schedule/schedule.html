@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+         График
+    </ion-title>
+  </ion-navbar>
+  <!--<ion-searchbar (ionInput)="searchRequests($event)"></ion-searchbar>-->
+
+</ion-header>
+
+<ion-content>
+
+  <div class="row text-center">
+        <div class="previous">
+          <div class="buttons">
+            <button
+              small ion-button
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="viewDateChange.next(viewDate)">
+              Предходен
+            </button>
+            <button
+            small ion-button
+              class="btn btn-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+              (viewDateChange)="viewDateChange.next(viewDate)">
+              Днес
+            </button>
+            <button
+            small ion-button
+              class="btn btn-primary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="viewDateChange.next(viewDate)">
+              Следващ
+            </button>
+          </div>
+        </div>
+        <div class="today">
+          <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h2>
+        </div>
+        <div class="month">
+          <div >
+            <button
+            small ion-button
+              class="btn btn-primary"
+              (click)="viewChange.emit('month')"
+              [class.active]="view === 'month'">
+              Месец
+            </button>
+            <button
+            small ion-button
+              class="btn btn-primary"
+              (click)="viewChange.emit('week')"
+              [class.active]="view === 'week'">
+              Седмица
+            </button>
+            <button
+              small ion-button
+              class="btn btn-primary"
+              (click)="viewChange.emit('day')"
+              [class.active]="view === 'day'">
+              Ден
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+  <div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+    (dayClicked)="viewDate = $event.day.date; view = 'day'">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [events]="events"
+    (dayClicked)="viewDate = $event.date; view = 'day'">
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="'day'"
+    [viewDate]="viewDate"
+    [events]="events">
+  </mwl-calendar-day-view>
+</div>
+</ion-content>
