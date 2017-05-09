@@ -29,6 +29,14 @@ export class ListService {
       }})
   }
 
+  getUserFirms($key) {
+    return this.af.database.list('/items', {
+      query: {
+        orderByChild: 'userId',
+        equalTo: $key
+      }})
+  }
+
   findItems(place: string) {
     let found = [];
     this.items.forEach( result => {

@@ -14,11 +14,13 @@ import { setHours, setMinutes, addDays } from 'date-fns';
 //Services
 import {UserService} from '../../services/userService';
 import {RequestsService} from '../../services/requestsService';
+import {ListService} from '../../services/listService';
 
 
 //Models
 import {UserModel} from '../../models/userModel';
 import {RequestModel} from '../../models/requestModel';
+import {ItemModel} from '../../models/itemModel'
 
 
 @Component({
@@ -85,6 +87,8 @@ export class Schedule {
 
    private user: UserModel;
    private requests: Array<RequestModel>;
+   private items: Array<ItemModel>;
+   private chosenFirm: any;
 
 
 
@@ -93,8 +97,17 @@ export class Schedule {
               private af: AngularFire,
               private _DomSanitizationService: DomSanitizer,
               private _requests: RequestsService,
+              private _items: ListService
   ) {
     this.user = this._user.getUser();
+
+    this._items.getUserFirms(this.user.uid).subscribe( (a) =>
+    {
+      this.items = a.map((e) => {
+        return new ItemModel(e);
+      })
+      console.log(this.items)
+    })
 
     this._requests.getBusinessRequests(this.user.uid).subscribe( (a) =>
     {
@@ -103,17 +116,17 @@ export class Schedule {
       })
       this.requests.forEach(r => {
         if(r.condition = 'Приет') {
-          console.log(r);
           let today = new Date();
           // let date = Date.parse(r.date);
-          let days =   (Date.parse(r.date) - today.getTime())/ (1000 * 60 * 60 * 24);
+          let days = (Date.parse(r.date) - today.getTime())/ (1000 * 60 * 60 * 24);
+          let time = Number(r.time.split(':')[0]);
           this.events.push({
             title: r.service,
             color: {
               primary: '#1e90ff',
               secondary: '#D1E8FF'
             },
-            start: setHours(setMinutes(addDays(new Date(), days), 0), 4),
+            start: setHours(setMinutes(addDays(new Date(), days), 0), 1),
             end: setHours(setMinutes(addDays(new Date(), days), 0), 5)
 
           })
@@ -127,5 +140,10 @@ export class Schedule {
   dayClicked({date, events}: {date: Date, events: CalendarEvent[]}): void {
 
       console.log(date)
+  }
+
+  chooseFirm(firm) {
+    this.chosenFirm = firm;
+    console.log(1)
   }
 }

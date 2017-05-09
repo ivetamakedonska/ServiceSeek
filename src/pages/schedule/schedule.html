@@ -10,6 +10,21 @@
 
 <ion-content>
 
+  <ion-list>
+  <ion-item>
+    <ion-label>Фирма</ion-label>
+    <ion-select [(ngModel)]="os" submitText="Okay" cancelText="Nah" (onSubmit)="chooseFirm(item.name)">
+      <ion-option
+      *ngFor="let item of items"
+      value="item.name"
+      >
+      {{item.name}}
+    </ion-option>
+
+    </ion-select>
+  </ion-item>
+</ion-list>
+
   <div class="row text-center">
         <div class="previous">
           <div class="buttons">
