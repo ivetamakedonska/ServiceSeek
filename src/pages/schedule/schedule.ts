@@ -35,6 +35,7 @@ import {ItemModel} from '../../models/itemModel'
     .previous {
       display: block;
       margin-left:21%;
+      margin-top-7% !important;
     }
 
     .today {
@@ -47,6 +48,10 @@ import {ItemModel} from '../../models/itemModel'
       margin-top: 2%;
       margin-bottom: 2%;
       font-size: 1.3em;
+    }
+
+    .item {
+      margin-bottom: -7% !important;
     }
   `]
 })
@@ -66,24 +71,7 @@ export class Schedule {
 
    @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
 
-   events: CalendarEvent[] = [{
-     title: 'Resizable event',
-     color: {
-       primary: '#1e90ff',
-       secondary: '#D1E8FF'
-     },
-     start: setHours(setMinutes(new Date(), 0), 4),
-     end: setHours(setMinutes(new Date(), 0), 6)
-
-   }, {
-     title: 'A non resizable event',
-     color: {
-       primary: '#1e90ff',
-       secondary: '#D1E8FF'
-     },
-     start: setHours(setMinutes(addDays(new Date(), 1), 0), 5),
-     end: setHours(setMinutes(addDays(new Date(), 1), 0), 6)
-   }];
+   private events: CalendarEvent[] = [];
 
    private user: UserModel;
    private requests: Array<RequestModel>;
@@ -91,13 +79,13 @@ export class Schedule {
    private chosenFirm: any;
 
 
-
   constructor(public nav: NavController,
               private _user: UserService,
               private af: AngularFire,
               private _DomSanitizationService: DomSanitizer,
               private _requests: RequestsService,
-              private _items: ListService
+              private _items: ListService,
+              private navCtrl: NavController
   ) {
     this.user = this._user.getUser();
 
@@ -106,8 +94,10 @@ export class Schedule {
       this.items = a.map((e) => {
         return new ItemModel(e);
       })
-      console.log(this.items)
+      this.chosenFirm = this.items[0]
+
     })
+
 
     this._requests.getBusinessRequests(this.user.uid).subscribe( (a) =>
     {
@@ -115,25 +105,37 @@ export class Schedule {
         return new RequestModel(e);
       })
       this.requests.forEach(r => {
-        if(r.condition = 'Приет') {
+        // console.log(r)
+        if(r.firmName == this.chosenFirm.name && r.condition == 'Приет') {
           let today = new Date();
           // let date = Date.parse(r.date);
           let days = (Date.parse(r.date) - today.getTime())/ (1000 * 60 * 60 * 24);
-          let time = Number(r.time.split(':')[0]);
+          let timeHours = Number(r.time.split(':')[0]);
+          let timeMin = Number(r.time.split(':')[1]);
+          let durationHours = Number(r.duration.split(':')[0]);
+          let durationMin = Number(r.duration.split(':')[1]);
+          let min, hours;
+          if(timeMin+durationMin>60) {
+            hours = Number(timeHours) + Number(durationHours) + (timeMin+durationMin)/2;
+            min = (Number(timeMin) + Number(durationMin))%2;
+          } else {
+            hours = Number(timeHours) + Number(durationHours);
+            min = Number(timeMin) + Number(durationMin);
+
+          }
           this.events.push({
             title: r.service,
             color: {
               primary: '#1e90ff',
               secondary: '#D1E8FF'
             },
-            start: setHours(setMinutes(addDays(new Date(), days), 0), 1),
-            end: setHours(setMinutes(addDays(new Date(), days), 0), 5)
+            start: setHours(setMinutes(addDays(new Date(), days), timeMin), timeHours),
+            end: setHours(setMinutes(addDays(new Date(), days), min), hours)
 
           })
         }
       })
     });
-
   }
 
 
@@ -143,10 +145,12 @@ export class Schedule {
   }
 
   chooseFirm(event) {
-    console.log(event)
-    // this.chosenFirm = firm;
-    console.log(1)
-  }
+    this.chosenFirm = event;
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+
+   }
+
 
   onChangeView(view){
     this.view = view;

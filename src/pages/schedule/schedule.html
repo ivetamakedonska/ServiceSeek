@@ -9,13 +9,13 @@
 
 <ion-content>
 
-  <ion-list>
-  <ion-item>
+  <ion-list class="firm">
+  <ion-item class="item">
     <ion-label>Фирма</ion-label>
-    <ion-select [(ngModel)]="os" submitText="Okay" cancelText="Nah" (ionChange)="chooseFirm($event)">
+    <ion-select [(ngModel)]="os" interface="popover"(ionChange)="chooseFirm($event)">
       <ion-option
       *ngFor="let item of items"
-      [value]="item.name"
+      [value]="item"
       >
       {{item.name}}
     </ion-option>
@@ -101,7 +101,11 @@
     <mwl-calendar-day-view
       *ngSwitchCase="'day'"
       [viewDate]="viewDate"
-      [events]="events">
+      [events]="events"
+      [dayStartHour]="10"
+      [dayEndHour]="20"
+      [hourSegments]="3">
+
     </mwl-calendar-day-view>
   </div>
 </ion-content>

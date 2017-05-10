@@ -46,7 +46,7 @@ export class MessagesService {
   getChosen($key) {
     return this.af.database.list('/messages', {
       query: {
-        orderByChild: '$key',
+        // orderByChild: '$key',
         equalTo: $key,
         orderByKey: true
       }

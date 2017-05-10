@@ -101,7 +101,7 @@ export class MakeAppointment {
 
   public event = {
     // month:'2017-'+this.month+'-'+this.day,
-    month: '2017-04-25',
+    month: '2017-05-11',
     timeStarts: '12:00'
   }
 
@@ -218,18 +218,18 @@ export class MakeAppointment {
     for(let i = start; i<=end-1; i++) {
       this.workingHours.push(i.toString());
     }
-    requests.forEach(r => {
-      if(r.duration.split(':')[1] == '00' && r.time.split(':')[1] == '00'){
-        let duration = Number(r.duration.split(':')[0]);
-        let beggining = Number(r.time.split(':')[0]);
-        let removedTime = beggining + duration;
-        this.workingHours.splice(this.workingHours.indexOf(removedTime.toString()), 1);
-      }
-
-        if(r.duration.split(':')[1] == '00' && r.time.split(':')[1] != '00'){
-
-        }
-    })
+    // requests.forEach(r => {
+    //   if(r.duration.split(':')[1] == '00' && r.time.split(':')[1] == '00'){
+    //     let duration = Number(r.duration.split(':')[0]);
+    //     let beggining = Number(r.time.split(':')[0]);
+    //     let removedTime = beggining + duration;
+    //     this.workingHours.splice(this.workingHours.indexOf(removedTime.toString()), 1);
+    //   }
+    //
+    //     if(r.duration.split(':')[1] == '00' && r.time.split(':')[1] != '00'){
+    //
+    //     }
+    // })
 
     // if(Number(appointement[0]) >= start && Number(appointement[1]) >= 0 &&  Number(appointement[0]) <= end-1 &&  Number(appointement[1]) < 60) {
     //   return true;

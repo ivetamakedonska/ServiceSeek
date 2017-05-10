@@ -30,88 +30,88 @@ import {MessageModel} from "../../models/messageModel";
         /*max-width: 3.5rem;*/
         /*max-height: 5.5rem;*/
      /*}*/
-     
+
      ion-input .text-input {
         width: 78%;
      }
-    
+
     .item-ios p {
         font-size: 4.2vw;
         display: inline-block;
         padding: 3%;
         border-radius: 10%;
      }
-     
+
      .my-message {
         color: white;
         background-color: #387ef5;
         float: right;
      }
-     
+
      .other-message {
         color: black;
         background-color: #f1f1f1;
         float: left;
      }
-     
+
      .item-md p {
         padding: 1.8% !important;
         border-radius: 11% !important;
      }
-     
+
      .list-ios .item-block .item-inner {
         border-bottom: 0.55px solid white !important;
       }
-      
+
       .item-ios .item-block .item-inner {
         border-bottom: 0.55px solid white !important;
       }
-     
+
      .my-time {
         font-size: 3vw !important;
         margin-top: 1%;
         float: right;
      }
-     
+
      .other-time {
         font-size: 3vw !important;
         margin-bottom: 1%;
      }
-     
+
      .name {
         margin-bottom: 2%;
      }
-    
+
     .send {
         margin: 0;
         padding-bottom: 0;
         font-size: 1.3rem;
      }
-     
+
      .comment-input {
         width: 63%;
         display: inline;
      }
- 
+
      .new-date {
        font-size: 1.3rem !important;
        display: block !important;
        text-align: center !important;
      }
- 
- 
+
+
      .toolbar-content-ios {
-        display: flex;   
+        display: flex;
      }
-     
+
      .toolbar-content-md {
-        display: flex;   
+        display: flex;
      }
-     
+
      ion-input .text-input {
          width: 63%;
      }
-     
+
      .add-photo {
         float:left;
         font-size: 1.6rem;
@@ -121,23 +121,23 @@ import {MessageModel} from "../../models/messageModel";
     .list-ios .item-block .item-inner {
       border-bottom: 0px solid white !important;
      }
-     
+
     .item-ios .item-block .item-inner {
       border-bottom: 0px solid white !important;
      }
-     
+
      .list-md .item-block .item-inner {
       border-bottom: 0px solid white !important;
      }
-     
+
     .item-md .item-block .item-inner {
       border-bottom: 0px solid white !important;
      }
-     
+
     .button-small-md {
         font-size: 1rem;
     }
-    
+
     .toolbar-title-md {
         font-size: 1.6rem;
     }
@@ -170,6 +170,7 @@ export class FullChat {
     this.chat = this.data.chat;
     this._messages.getChosen(this.data.chat.$key).subscribe( (a) =>
     {
+      console.log(a)
       this.messages = a[0].messages;
       this.keys = this.messages ? Object.keys(this.messages) :[];
 
