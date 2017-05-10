@@ -9,12 +9,16 @@ import {EditFirm} from "../editFirm/editFirm";
 //Services
 import {UserService} from "../../services/userService";
 import {LikesService} from '../../services/likesService';
+import {ListService} from '../../services/listService';
+
 
 
 //Models
 import {LikesModel} from '../../models/likesModel';
 import {CommentsModel} from '../../models/commentsModel';
 import {UserModel} from '../../models/userModel';
+import {ItemModel} from '../../models/itemModel';
+
 
 //other
 import { AngularFire } from 'angularfire2';
@@ -57,11 +61,11 @@ declare const firebase;
        margin-left: 128%;
        margin-top: -48%;
      }
-     
+
      .likes-icon {
         font-size: 12vw;
      }
-     
+
      .item-workTime {
         color: #666;
         margin-left: 5%;
@@ -85,7 +89,7 @@ declare const firebase;
        margin-top: 2%;
        background-color: #999;
     }
-    
+
     .make-appointment {
        width: 49%;
        display: inline-table;
@@ -97,7 +101,7 @@ declare const firebase;
        margin-top: 2%;
        margin-left: 27%;
     }
-    
+
     .likes-comments-icons {
       margin-right: 3%;
     }
@@ -107,7 +111,7 @@ declare const firebase;
     .item-ios .under-name {
       margin-left: 61% !important;
     }
-    
+
     .show-more {
       margin-left: 30%;
     }
@@ -116,6 +120,7 @@ declare const firebase;
 })
 export class Items {
   private item:any;
+  private id: any;
   private color:any;
   private likes:Array<LikesModel>;
   // private comments:Array<CommentsModel>;
@@ -123,17 +128,38 @@ export class Items {
   private showed: number = 1;
   private more: boolean = false;
   private likeClicked: boolean = false;
+  private items: Array<ItemModel>;
+
 
 
   constructor(private params:NavParams, private nav:NavController, private _user:UserService,
               private _likes:LikesService,
               private af:AngularFire,
-              private _DomSanitizationService: DomSanitizer
+              private _DomSanitizationService: DomSanitizer,
+              private _items:ListService,
+
   ) {
-    this.item = params.data.item;
-    this.color = params.data.color;
-    this.likes = this.item.likes;
+    this.id = params.data.item.$key;
+    console.log(this.id)
     this.user = this._user.getUser();
+
+    this.color = params.data.color;
+    this._items.getItems(params.data.item.subCategoryId).subscribe( (a) =>
+    {
+      this.items = a.map((e) => {
+        return new ItemModel(e);
+      })
+      this.items.forEach(i => {
+        if(i.$key == this.id) {
+          this.item=i;
+          this.likes = this.item.likes;
+
+          console.log(this.item)
+        }
+      })
+    })
+
+
   }
 
   onButtonLikesClick(item) {
@@ -151,24 +177,41 @@ export class Items {
     this.nav.push(Comments, data);
   }
 
-  onLikeClick(btn, thisColor, item) {
-    this.likeClicked = !this.likeClicked;
-    let itemsRef = this.af.database.list('/items/' + item.$key);
-    let likesRef = this.af.database.list('/items/' + item.$key + '/likes');
-    if(item.isLiked(this.user.uid)) {
-      let likeKey = item.getLikeKey(this.user.uid);
-      let likeRef = this.af.database.list('/items/' + item.$key + '/likes/' + likeKey);
+  onLikeClick(btn, thisColor) {
+    // let itemsRef = this.af.database.list('/items/' + item.$key);
+    // let likesRef = itemsRef.child('likes');
 
-      likeRef.remove();
+    if(this.item.isLiked(this.user.uid)) {
+      let likeKey = this.item.getLikeKey(this.user.uid);
+      let itemsRef = this.af.database.list('/items/' + this.item.$key + '/likes/' + likeKey);
+      // btn.style.color = thisColor;
+      itemsRef.remove();
 
     } else {
-      btn._elementRef.nativeElement.style.color = thisColor;
 
-      likesRef.push({
+      let ref = this.af.database.list('/items/' + this.item.$key + '/likes');
+      ref.push({
         uid: this.user.uid
       });
 
     }
+    // this.likeClicked = !this.likeClicked;
+    // let itemsRef = this.af.database.list('/items/' + item.$key);
+    // let likesRef = this.af.database.list('/items/' + item.$key + '/likes');
+    // if(item.isLiked(this.user.uid)) {
+    //   let likeKey = item.getLikeKey(this.user.uid);
+    //   let likeRef = this.af.database.list('/items/' + item.$key + '/likes/' + likeKey);
+    //
+    //   likeRef.remove();
+    //
+    // } else {
+    //   // btn._elementRef.nativeElement.style.color = thisColor;
+    //
+    //   likesRef.push({
+    //     uid: this.user.uid
+    //   });
+    //
+    // }
   }
 
   makeAppointement(color,item) {

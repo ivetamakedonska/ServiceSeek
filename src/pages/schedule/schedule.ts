@@ -142,8 +142,13 @@ export class Schedule {
       console.log(date)
   }
 
-  chooseFirm(firm) {
-    this.chosenFirm = firm;
+  chooseFirm(event) {
+    console.log(event)
+    // this.chosenFirm = firm;
     console.log(1)
+  }
+
+  onChangeView(view){
+    this.view = view;
   }
 }

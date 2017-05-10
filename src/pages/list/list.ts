@@ -153,31 +153,30 @@ export class List {
   }
 
   onLikeClick(btn, thisColor, like, item, e) {
+
     this.likeClicked = !this.likeClicked;
     this.clickedKey = item.$key;
-    e.preventDefault();
-    e.stopPropagation();
 
     // let itemsRef = this.af.database.list('/items/' + item.$key);
     // let likesRef = itemsRef.child('likes');
 
-
+    // console.log(item.isLiked(this.user.uid))
     if(item.isLiked(this.user.uid)) {
       let likeKey = item.getLikeKey(this.user.uid);
       let itemsRef = this.af.database.list('/items/' + item.$key + '/likes/' + likeKey);
-
+      // btn.style.color = thisColor;
       itemsRef.remove();
-      console.log(this.likeClicked)
 
     } else {
-      btn._elementRef.nativeElement.style.color = thisColor;
+
       let ref = this.af.database.list('/items/' + item.$key + '/likes');
       ref.push({
         uid: this.user.uid
       });
-      console.log(this.likeClicked)
 
     }
+    e.preventDefault();
+    e.stopPropagation();
   }
 
 

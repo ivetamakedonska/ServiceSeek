@@ -119,18 +119,18 @@
                 btn
                 class="comments"
                 outline ion-button
-                (click)="onLikeClick(btn,subData.color, like, item, $event)"
-
                 [ngStyle] = "{'color': subData.color, 'border-color': subData.color}">
           <ion-icon name="text" class="comments-icon"></ion-icon>
           <div>{{item.commentsCount}} коментара</div>
         </button>
 
         <ion-icon
+                #btn
                 class="likes"
                 name="thumbs-up"
                 clear large ion-xfbutton
-                [style.color]="!likeClicked && item.$key == clickedKey?subData.color:''"
+                (click)="onLikeClick(btn,subData.color, like, item, $event)"
+                [style.color]="(item.isLiked(user?.uid)) ? subData.color: '' "
 
         >
 

@@ -35,8 +35,8 @@
           #btn
           class="likes"
           clear large ion-button
-          (click)="onLikeClick(btn,color, item)"
-          [style.color]="!likeClicked?color:''"
+          (click)="onLikeClick(btn, color, item)"
+          [style.color]="(item.isLiked(user?.uid))  ? color: '' "
 
         >
           <ion-icon name="thumbs-up" class="likes-icon"></ion-icon>

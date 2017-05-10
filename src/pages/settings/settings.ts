@@ -106,7 +106,6 @@ export class AboutPage {
   }
 
   signOut() {
-    this.nav.push(AuthenticationPage);
     this.authState = this.auth$.getAuth();
     console.log(this.authState)
     this.auth$.subscribe((state: FirebaseAuthState) => {
