@@ -33,7 +33,6 @@ export class MessagesService {
         }
         if (chat.seenByFirm == false) {
           this.newMessagesFirm++;
-          console.log(this.newMessagesFirm)
         }
       })
       this.requests = a.map((e) => {

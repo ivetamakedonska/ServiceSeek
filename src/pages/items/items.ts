@@ -140,7 +140,6 @@ export class Items {
 
   ) {
     this.id = params.data.item.$key;
-    console.log(this.id)
     this.user = this._user.getUser();
 
     this.color = params.data.color;
@@ -154,7 +153,6 @@ export class Items {
           this.item=i;
           this.likes = this.item.likes;
 
-          console.log(this.item)
         }
       })
     })
@@ -263,14 +261,12 @@ export class Items {
       }
 
       if(index!= -1 ){
-        console.log('1')
         data = {
           chat: messages[index]
         }
 
         this.nav.push(FullChat, data)
       } else {
-        console.log(2)
         let info = {
           businessId: item.$key,
           firmImg: item.img,

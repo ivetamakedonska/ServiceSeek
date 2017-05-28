@@ -22,13 +22,13 @@ import {SingUp} from '../signUp/signup';
         width: 28%;
         margin-left: 37%;
       }
-      
+
      .logo2 {
         margin-left: 23%;
         width: 55%;
         margin-bottom: 4%;
      }
-      
+
      .content {
         background: #f8f8f8;
      }
@@ -38,39 +38,39 @@ import {SingUp} from '../signUp/signup';
         margin-left: 13%;
         background: #f8f8f8;
     }
-      
+
      .login{
        width: 75%;
        min-height: 3vw;
        height: 10vw;
        margin-left: 13%;
      }
-     
+
      .button-large-md {
           font-size: 1.6rem;
      }
-     
+
      .button-ios-blue2 {
        margin-top: -6% !important;
      }
-     
+
      .list-md {
           margin: -1px 0 5px 0;
      }
-     
+
      .error-msg {
         color: red;
         margin: 2%;
         margin-left: 50%;
      }
-     
+
       .input-has-focus .label-ios[floating], .input-has-value .label-ios[floating] {
         color: #008ae6;
       }
       .input-has-focus .label-md[floating], .input-has-value .label-md[floating] {
         color: #008ae6;
       }
-      
+
       .mail, .password {
         color: #999;
       }
@@ -146,7 +146,6 @@ export class Login {
 
               });
         } else {
-          console.log('not')
         }
       });
 

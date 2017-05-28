@@ -26,7 +26,7 @@ import {HomePage} from '../home/home'
         display: inline;
         margin-bottom: 13%;
       }
-      
+
      .logo2 {
         width: 45%;
         display: inline;
@@ -34,7 +34,7 @@ import {HomePage} from '../home/home'
         margin-left: 1%;
 
      }
-      
+
      .content {
         background: #f8f8f8;
      }
@@ -44,13 +44,13 @@ import {HomePage} from '../home/home'
         margin-left: 13%;
         background: #f8f8f8;
     }
-      
+
      .login{
         width: 75%;
         margin-left: 13%;
         margin-top: -2%;
      }
-     
+
      .welcome {
         font-size: 2.4rem;
         color: #ff9933;
@@ -64,77 +64,77 @@ import {HomePage} from '../home/home'
         margin-left: 16%;
         margin-right: 2%;
       }
-      
+
       .user-label {
         display: inline;
       }
-      
+
       .bussinesman-label {
         display: inline;
         margin-left: 12%;
         margin-right: -35%;
       }
-      
+
       .choose {
         font-size: 1.5rem;
         text-align: center;
         margin-top: -11%;
       }
-      
+
       #name {
         margin-top: 3%;
         width: 75%;
         margin-left: 13%;
       }
-      
+
       .button-ios-orange2 {
         margin-top: -6% !important;
       }
-      
+
       .button-large-md {
           font-size: 1.6rem;
           margin-top: 3%;
           height: 2em;
      }
-     
+
      .error {
         color: red;
      }
-     
+
      .error-name {
         margin-left: 52%;
         color: red;
         margin-top: 2%;
      }
-     
+
      .error-surname {
          margin-left: 44%;
          color: red;
         margin-top: 2%;
      }
-     
+
      .error-email {
         margin-left: 48%;
         color: red;
         margin-top: 2%;
      }
-     
+
      .error-pass {
          margin-left: 46%;
          color: red;
         margin-top: 2%;
      }
-     
-      .error-repeat { 
+
+      .error-repeat {
         margin-left: 41%;
         color: red;
         margin-top: 2%;
     }
-    
+
     .name, .surname, .password, .repeat, .mail {
         color: #999;
     }
-     
+
      .input-has-focus .label-ios[floating], .input-has-value .label-ios[floating] {
         color: #008ae6;
         margin-top: 2% !important;
@@ -144,30 +144,30 @@ import {HomePage} from '../home/home'
         margin-top: 2% !important;
 
       }
-     
-    
+
+
     .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
       border-bottom-color: transparent !important;
       box-shadow: inset 0 -1px 0 0 transparent !important;
     }
-    
+
     .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
       border-bottom-color: transparent !important;
       box-shadow: inset 0 -1px 0 0 !important;
     }
-    
+
     .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
       border-bottom-color: transparent !important;
       box-shadow: inset 0 -1px 0 0 transparent !important;
     }
-    
+
     .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
       border-bottom-color: transparent !important;
       box-shadow: inset 0 -1px 0 0 transparent !important;
     }
-    
+
     ion-label[stacked], ion-label[floating] {
-      font-size: 1.5rem !important; 
+      font-size: 1.5rem !important;
       margin: 0 !important;
     }
   `]
@@ -233,7 +233,6 @@ export class SingUp {
         if(repeat == password) {
             this.af.auth.createUser({ email: email, password: password })
                 .then((user) => {
-                    console.log(user);
                     const items = this.af.database.list('/userInfo');
 
                       items.push({
@@ -309,7 +308,6 @@ export class SingUp {
     // }
 
   test(item) {
-    console.log(item)
   }
 }
 
@@ -323,5 +321,3 @@ export function validateEmail(c: any) {
     email: true
   }
 }
-
-

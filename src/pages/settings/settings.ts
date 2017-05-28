@@ -107,7 +107,6 @@ export class AboutPage {
 
   signOut() {
     this.authState = this.auth$.getAuth();
-    console.log(this.authState)
     this.auth$.subscribe((state: FirebaseAuthState) => {
       state = null;
       this.authState = state;

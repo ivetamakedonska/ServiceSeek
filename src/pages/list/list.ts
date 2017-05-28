@@ -140,7 +140,6 @@ export class List {
     })
 
     this.user = this._user.getUser();
-    console.log(this.items)
   }
 
   openNavDetailsPage(item, color)

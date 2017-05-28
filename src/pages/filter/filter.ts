@@ -15,7 +15,7 @@ import {ItemModel} from '../../models/itemModel';
     .check {
       color: #999
     }
-    
+
     .button-full-ios {
      margin-top: -6%;
     }
@@ -32,7 +32,6 @@ export class Filter {
 
   mostLikedChecked() {
     this.mostLiked = !this.mostLiked;
-    console.log(this.mostLiked)
   }
 
   filter() {

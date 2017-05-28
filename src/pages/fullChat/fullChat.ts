@@ -170,11 +170,9 @@ export class FullChat {
     this.chat = this.data.chat;
     this._messages.getChosen(this.data.chat.$key).subscribe( (a) =>
     {
-      console.log(a)
       this.messages = a[0].messages;
       this.keys = this.messages ? Object.keys(this.messages) :[];
 
-      // console.log(this.userMessages[0].messages[Object.keys(this.userMessages[0].messages)[Object.keys(this.userMessages[0].messages).length - 1]]);
 
     })
     this.user = this._user.getUser();

@@ -161,7 +161,7 @@ export class ContactPage {
           return new RequestModel(e);
         })
       })
-      console.log(this.messages)
+
 
     } else {
 

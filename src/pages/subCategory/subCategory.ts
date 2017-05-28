@@ -30,27 +30,27 @@ import {SubCategoryModel} from '../../models/subCategoryModel';
         position: absolute;
         top: 50%;
     }
-    
+
     .check-box {
         /*margin-left: 90% !important;*/
         display: inline!important;
     }
-    
+
     .decline {
         margin-right: 0;
         width: 49%;
         margin-left: 1%;
     }
-    
+
     .continue {
         margin-left: 0;
         width: 48%;
     }
-    
+
     .item-ios p {
        font-size: 1.7rem !important;
     }
-    
+
     .item-md p {
       font-size: 1.5rem !important;
     }
@@ -101,7 +101,7 @@ export class SubCategory {
         data.subIds.push(e.$key);
       });
       this.nav.push(RegisterFirm, data);
-    } else console.log('error')
+    }
   }
 
   declineClick() {

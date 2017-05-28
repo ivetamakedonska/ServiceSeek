@@ -94,7 +94,9 @@ export class Schedule {
       this.items = a.map((e) => {
         return new ItemModel(e);
       })
-      this.chosenFirm = this.items[0]
+      if(this.chosenFirm == null ) {
+        this.chosenFirm = this.items[0]
+      }
 
     })
 

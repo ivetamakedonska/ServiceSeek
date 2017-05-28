@@ -101,7 +101,7 @@ export class MakeAppointment {
 
   public event = {
     // month:'2017-'+this.month+'-'+this.day,
-    month: '2017-05-11',
+    month: '2017-05-13',
     timeStarts: '12:00'
   }
 
@@ -240,6 +240,6 @@ export class MakeAppointment {
 
   dayClicked({date, events}: {date: Date, events: CalendarEvent[]}): void {
 
-      console.log(date)
+
   }
 }
